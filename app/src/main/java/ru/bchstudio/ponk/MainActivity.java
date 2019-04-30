@@ -1,25 +1,16 @@
 package ru.bchstudio.ponk;
 
-import android.app.LauncherActivity;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.os.Build;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
+import ru.bchstudio.ponk.notifi.CreatorNotification;
 
 
 public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCompleted {
@@ -79,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCom
         Bitmap img =  textAsBitmap("22", 60, Color.RED);
         iv.setImageBitmap(img);
 
-        Notification notification = new Notification("myChnl", getApplicationContext());
+        CreatorNotification notification = new CreatorNotification("myChnl", getApplicationContext());
 
         notification.send("Test", img);
 

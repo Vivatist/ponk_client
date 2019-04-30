@@ -42,7 +42,7 @@ public class NewApiNotification implements ApiNotification {
         NotificationChannel mChannel;
         // The id of the channel.
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, null);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, idChannel);
         builder.setContentTitle(context.getString(R.string.app_name))
                 .setSmallIcon(R.drawable.ic_stat_name)
                 .setContentIntent(pendingIntent)

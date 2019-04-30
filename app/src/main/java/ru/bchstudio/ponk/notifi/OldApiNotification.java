@@ -1,14 +1,12 @@
 package ru.bchstudio.ponk.notifi;
 
 import android.app.LauncherActivity;
-import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -37,11 +35,8 @@ public class OldApiNotification implements ApiNotification {
 
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        NotificationChannel mChannel;
-        // The id of the channel.
 
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, null);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, idChannel);
         builder.setContentTitle(context.getString(R.string.app_name))
                 .setSmallIcon(R.drawable.ic_stat_name)
                 .setContentIntent(pendingIntent)

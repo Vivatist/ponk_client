@@ -49,7 +49,7 @@ public class NewApiNotification implements ApiNotification {
         Log.e(this.getClass().getSimpleName(),"Выводим сообщение в новом API");
 
         builder.setSmallIcon(R.drawable.ic_stat_name)
-                .setContentText("TEST ALARM!");
+                .setContentText(text);
 
         mNotificationManager.notify(1, builder.build());
 

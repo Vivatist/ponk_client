@@ -1,5 +1,6 @@
 package ru.bchstudio.ponk;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -77,4 +78,11 @@ public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCom
     }
 
 
+    public void onStartClick(View view) {
+        startService(new Intent(this, MainService.class));
+    }
+
+    public void onStopClick(View view) {
+        stopService(new Intent(this, MainService.class));
+    }
 }

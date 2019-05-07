@@ -1,6 +1,5 @@
 package ru.bchstudio.ponk;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,20 +16,18 @@ import ru.bchstudio.ponk.notifi.CreatorNotification;
 
 public class MainService extends JobIntentService {
 
-    @SuppressLint("StaticFieldLeak")
-    static Context context;
 
     final String TAG = "MainService";
 
     public static final int JOB_ID = 0x01;
 
+    //метод для запуска сервиса вручную
     public static void start(Context context) {
         Intent starter = new Intent(context, MainService.class);
         MainService.enqueueWork(context, starter);
-        MainService.context = context;
     }
 
-
+    //метод для автозапуска
     public static void enqueueWork(Context context, Intent work) {
         enqueueWork(context, MainService.class, JOB_ID, work);
     }
@@ -47,6 +44,7 @@ public class MainService extends JobIntentService {
                 for (int i = 1; i<=500; i++) {
                     Log.d(TAG, "i = " + i);
 
+                    //Пример работы с интерфейсом из потока
                     new Handler(Looper.getMainLooper()).post(new Runnable() {
                         @Override
                         public void run() {
@@ -58,14 +56,16 @@ public class MainService extends JobIntentService {
 
 
                     Bitmap img = null;
-                    CreatorNotification notification = new CreatorNotification("myChnl", MainService.context);
+                    CreatorNotification notification = new CreatorNotification("myChnl", getApplicationContext());
                     notification.send("i = " + i, img);
+
 
                     try {
                         TimeUnit.SECONDS.sleep(5);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+
                 }
                 stopSelf();
             }

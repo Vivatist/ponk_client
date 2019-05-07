@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ponk</string>
+
+    <string name="recieve_start">Старт ресивера, попытка запустить сервис</string>
 </resources>

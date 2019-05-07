@@ -1,6 +1,5 @@
 package ru.bchstudio.ponk;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -11,7 +10,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
 import ru.bchstudio.ponk.notifi.CreatorNotification;
+import ru.bchstudio.ponk.MainService;
 
 
 public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCompleted {
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCom
     TextView tvCounter;
     int queryCounter = 0;
     ImageView iv;
+
+
 
     public Bitmap textAsBitmap(String text, float textSize, int textColor) {
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -55,8 +58,6 @@ public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCom
         tvRez.setText(result);
         queryCounter += 1;
         tvCounter.setText(String.valueOf(queryCounter));
-        // выводим сообщение
-        //Toast.makeText(this, "Connect", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -79,10 +80,13 @@ public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCom
 
 
     public void onStartClick(View view) {
-        startService(new Intent(this, MainService.class));
+        MainService.start(getApplicationContext());
     }
 
     public void onStopClick(View view) {
-        stopService(new Intent(this, MainService.class));
+
+
     }
+
+
 }

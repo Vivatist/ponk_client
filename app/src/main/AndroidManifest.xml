@@ -14,6 +14,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.QUICKBOOT_POWERON" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="false"
@@ -34,14 +35,29 @@
         <service android:name=".MainService"
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
-        <receiver android:name=".MyBroadReceiv">
+        <service
+            android:name=".service.RealService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <service
+            android:name=".service.RestartService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <receiver android:name=".service.AlarmRecever"/>
+
+        <receiver
+            android:name=".service.RebootRecever"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":remote">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
                 <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
             </intent-filter>
         </receiver>
-
 
     </application>
 

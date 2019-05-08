@@ -1,22 +1,56 @@
 package ru.bchstudio.ponk;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import ru.bchstudio.ponk.notifi.CreatorNotification;
 import ru.bchstudio.ponk.MainService;
+import ru.bchstudio.ponk.service.RealService;
 
 
 public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCompleted {
 
+
+    private Intent serviceIntent;
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        if (RealService.serviceIntent==null) {
+            serviceIntent = new Intent(this, RealService.class);
+            startService(serviceIntent);
+        } else {
+            serviceIntent = RealService.serviceIntent;//getInstance().getApplication();
+            Toast.makeText(getApplicationContext(), "already", Toast.LENGTH_LONG).show();
+        }
+
+        tvRez = findViewById(R.id.textView2);
+        tvCounter = findViewById(R.id.textView);
+        iv = findViewById(R.id.imageView);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (serviceIntent!=null) {
+            stopService(serviceIntent);
+            serviceIntent = null;
+        }
+    }
 
     private static final String myURL = "http://89.169.90.244:5000/moscow";
     TextView tvRez;
@@ -41,16 +75,6 @@ public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCom
     }
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        tvRez = findViewById(R.id.textView2);
-        tvCounter = findViewById(R.id.textView);
-        iv = findViewById(R.id.imageView);
-
-
-    }
 
 
     @Override

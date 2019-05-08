@@ -28,6 +28,8 @@ public class NewApiNotification implements ApiNotification {
 
         int importance = NotificationManager.IMPORTANCE_HIGH;
         NotificationChannel mChannel = new NotificationChannel(idChannel, context.getString(R.string.app_name), importance);
+        mChannel.setSound(null, null);
+        mChannel.setShowBadge(false);
         // Configure the notification channel.
       //  mChannel.setDescription("CHANNEL TEST ALARM");
        // mChannel.enableLights(true);

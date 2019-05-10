@@ -16,16 +16,17 @@ import android.os.Looper;
 import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 import ru.bchstudio.ponk.MainActivity;
+import ru.bchstudio.ponk.OnWebAsyncTaskCompleted;
 import ru.bchstudio.ponk.R;
+import ru.bchstudio.ponk.WebAsyncTask;
 
-public class RealService extends Service {
+public class RealService extends Service  implements OnWebAsyncTaskCompleted {
     private Thread mainThread;
     public static Intent serviceIntent = null;
+    private static final String myURL = "http://89.169.90.244:5000/test";
 
     public RealService() {
     }
@@ -46,17 +47,21 @@ public class RealService extends Service {
         startForeground(1010, prepareNotification(R.mipmap.ic_launcher));
         newShowToast(getApplication(), "Start Foreground Service");
 
+        final OnWebAsyncTaskCompleted lstnr = this;
 
         mainThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                SimpleDateFormat sdf = new SimpleDateFormat("aa hh:mm");
+
                 boolean run = true;
                 while (run) {
                     try {
-                        Thread.sleep(1000 * 5); // 1 minute
-                        Date date = new Date();
-                        newShowToast(getApplication(), sdf.format(date));
+
+
+                        new WebAsyncTask(myURL,lstnr).execute();
+                        Thread.sleep(1000 * 5);
+
+
                     } catch (InterruptedException e) {
                         run = false;
                         e.printStackTrace();
@@ -104,13 +109,13 @@ public class RealService extends Service {
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
-                Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(application, msg, Toast.LENGTH_SHORT);
                 toast.show();
             }
         });
     }
 
-
+    //Пример работы с интерфейсом из потока
     public void showToast(final Application application, final String msg) {
         Handler h = new Handler(application.getMainLooper());
         h.post(new Runnable() {
@@ -136,7 +141,7 @@ public class RealService extends Service {
     private Notification prepareNotification(int icon) {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "Channel ID");
-        builder.setSmallIcon(R.mipmap.ic_launcher);
+        builder.setSmallIcon(icon);
         builder.setContentTitle(null);
         builder.setContentText(null);
         Intent notificationIntent = new Intent(this, MainActivity.class);
@@ -153,4 +158,8 @@ public class RealService extends Service {
 
     }
 
+    @Override
+    public void onWebAsyncTaskCompleted(String result) {
+        newShowToast(getApplication(),result);
+    }
 }

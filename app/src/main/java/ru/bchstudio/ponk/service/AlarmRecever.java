@@ -16,12 +16,6 @@ public class AlarmRecever extends BroadcastReceiver{
             Intent in = new Intent(context, RealService.class);
             context.startService(in);
         }
-
-
-        if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-            //TODO чтобы включить запуск сервиса - раскомментировать
-            // MainService.enqueueWork(context, new Intent());
-        }
     }
 
 }

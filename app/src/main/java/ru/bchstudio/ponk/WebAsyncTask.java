@@ -14,7 +14,7 @@ public class WebAsyncTask extends AsyncTask<Void, String, String> { //change Obj
     private OnWebAsyncTaskCompleted listener;
     private String myURL;
 
-    WebAsyncTask(String myURL, OnWebAsyncTaskCompleted listener){
+    public WebAsyncTask(String myURL, OnWebAsyncTaskCompleted listener){
         this.listener=listener;
         this.myURL = myURL;
     }

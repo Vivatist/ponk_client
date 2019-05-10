@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCom
         }
     }
 
-    private static final String myURL = "http://89.169.90.244:5000/moscow";
+    private static final String myURL = "http://89.169.90.244:5000/test";
     TextView tvRez;
     TextView tvCounter;
     int queryCounter = 0;
@@ -85,20 +85,17 @@ public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCom
     }
 
 
-
-
-
     public void onMyButtonClick(View view)
     {
         new WebAsyncTask(myURL,this).execute();
 
 
-        Bitmap img =  textAsBitmap("22", 60, Color.RED);
-        iv.setImageBitmap(img);
 
-        CreatorNotification notification = new CreatorNotification("myChnl", getApplicationContext());
-
-        notification.send("Test", img);
+        //ПРИМЕР ОТПРАВКИ СООБЩЕНИЯ
+        // Bitmap img =  textAsBitmap("22", 60, Color.RED);
+        // iv.setImageBitmap(img);
+        // CreatorNotification notification = new CreatorNotification("myChnl", getApplicationContext());
+        // notification.send("Test", img);
 
     }
 

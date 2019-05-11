@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCom
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (RealService.serviceIntent==null) {
+        if (RealService.serviceIntent == null) {
             serviceIntent = new Intent(this, RealService.class);
             startService(serviceIntent);
         } else {
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCom
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (serviceIntent!=null) {
+        if (serviceIntent != null) {
             stopService(serviceIntent);
             serviceIntent = null;
         }
@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCom
     TextView tvCounter;
     int queryCounter = 0;
     ImageView iv;
-
 
 
     public Bitmap textAsBitmap(String text, float textSize, int textColor) {
@@ -75,8 +74,6 @@ public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCom
     }
 
 
-
-
     @Override
     public void onWebAsyncTaskCompleted(String result) {
         tvRez.setText(result);
@@ -85,10 +82,8 @@ public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCom
     }
 
 
-    public void onMyButtonClick(View view)
-    {
-        new WebAsyncTask(Constants.TEST_URL, Constants.HTTP_REQUEST_TIMEOUT,this).execute();
-
+    public void onMyButtonClick(View view) {
+        new WebAsyncTask(Constants.TEST_URL, Constants.HTTP_REQUEST_TIMEOUT, this).execute();
 
 
         //ПРИМЕР ОТПРАВКИ СООБЩЕНИЯ

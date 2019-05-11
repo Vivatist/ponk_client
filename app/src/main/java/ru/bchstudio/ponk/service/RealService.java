@@ -24,7 +24,7 @@ import ru.bchstudio.ponk.OnWebAsyncTaskCompleted;
 import ru.bchstudio.ponk.R;
 import ru.bchstudio.ponk.WebAsyncTask;
 
-public class RealService extends Service  implements OnWebAsyncTaskCompleted {
+public class RealService extends Service implements OnWebAsyncTaskCompleted {
     private Thread mainThread;
     public static Intent serviceIntent = null;
 
@@ -37,7 +37,7 @@ public class RealService extends Service  implements OnWebAsyncTaskCompleted {
         c.setTimeInMillis(System.currentTimeMillis());
         c.add(Calendar.SECOND, 1);
         Intent intent = new Intent(this, AlarmRecever.class);
-        PendingIntent sender = PendingIntent.getBroadcast(this, 0,intent,0);
+        PendingIntent sender = PendingIntent.getBroadcast(this, 0, intent, 0);
 
         AlarmManager mAlarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         mAlarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), sender);
@@ -74,7 +74,7 @@ public class RealService extends Service  implements OnWebAsyncTaskCompleted {
 
 
                         new WebAsyncTask(Constants.TEST_URL, Constants.HTTP_REQUEST_TIMEOUT, lstnr).execute();
-                        Thread.sleep(1000 * 5);
+                        Thread.sleep(Constants.WEATHER_REQUEST_INTERVAL);
 
 
                     } catch (InterruptedException e) {
@@ -88,8 +88,6 @@ public class RealService extends Service  implements OnWebAsyncTaskCompleted {
 
         return START_NOT_STICKY;
     }
-
-
 
 
     @Override
@@ -117,7 +115,6 @@ public class RealService extends Service  implements OnWebAsyncTaskCompleted {
     public IBinder onBind(Intent intent) {
         return null;
     }
-
 
 
     @Override
@@ -150,9 +147,6 @@ public class RealService extends Service  implements OnWebAsyncTaskCompleted {
     }
 
 
-
-
-
     private Notification prepareNotification(int icon) {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "Channel ID");
@@ -175,6 +169,6 @@ public class RealService extends Service  implements OnWebAsyncTaskCompleted {
 
     @Override
     public void onWebAsyncTaskCompleted(String result) {
-        newShowToast(getApplication(),result);
+        newShowToast(getApplication(), result);
     }
 }

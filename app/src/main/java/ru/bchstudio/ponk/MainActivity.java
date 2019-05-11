@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCom
         }
     }
 
-    private static final String myURL = "http://89.169.90.244:5000/test";
+
     TextView tvRez;
     TextView tvCounter;
     int queryCounter = 0;
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCom
 
     public void onMyButtonClick(View view)
     {
-        new WebAsyncTask(myURL,this).execute();
+        new WebAsyncTask(Constants.TEST_URL, Constants.HTTP_REQUEST_TIMEOUT,this).execute();
 
 
 

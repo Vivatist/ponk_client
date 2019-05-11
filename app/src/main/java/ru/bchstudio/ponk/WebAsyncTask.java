@@ -13,15 +13,17 @@ public class WebAsyncTask extends AsyncTask<Void, String, String> { //change Obj
     private static final String TAG = WebAsyncTask.class.getName();
     private OnWebAsyncTaskCompleted listener;
     private String myURL;
+    private int httpRequestTimeout;
 
-    public WebAsyncTask(String myURL, OnWebAsyncTaskCompleted listener){
+    public WebAsyncTask(String myURL, int httpRequestTimeout,OnWebAsyncTaskCompleted listener){
         this.listener=listener;
         this.myURL = myURL;
+        this.httpRequestTimeout = httpRequestTimeout;
     }
 
 
     @org.jetbrains.annotations.NotNull
-    private static String doGet(String url)
+    private static String doGet(String url, int httpRequestTimeout)
             throws Exception {
 
         URL obj = new URL(url);
@@ -32,6 +34,8 @@ public class WebAsyncTask extends AsyncTask<Void, String, String> { //change Obj
         connection.setRequestProperty("User-Agent", "Mozilla/5.0" );
         connection.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
         connection.setRequestProperty("Content-Type", "application/json");
+
+        connection.setConnectTimeout(httpRequestTimeout);
 
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String inputLine;
@@ -47,12 +51,12 @@ public class WebAsyncTask extends AsyncTask<Void, String, String> { //change Obj
     }
 
 
-
+    //Выполняется автоматом в отдельном потоке
     @Override
     protected String doInBackground(Void... voids) {
-        String s = "";
+        String s = null;
         try {
-            s = doGet(myURL);
+            s = doGet(myURL, httpRequestTimeout);
         } catch (Exception e) {
             e.printStackTrace();
             Log.d(TAG,"Response string: " + e.toString());
@@ -61,12 +65,9 @@ public class WebAsyncTask extends AsyncTask<Void, String, String> { //change Obj
     }
 
 
-
-
-
+    //Выполняется после завершения потока
     @Override
     protected void onPostExecute(final String result) {
-        //onPostExecute();
         listener.onWebAsyncTaskCompleted(result);
     }
 

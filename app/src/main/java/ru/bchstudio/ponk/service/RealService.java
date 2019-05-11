@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
+import ru.bchstudio.ponk.Constants;
 import ru.bchstudio.ponk.MainActivity;
 import ru.bchstudio.ponk.OnWebAsyncTaskCompleted;
 import ru.bchstudio.ponk.R;
@@ -26,9 +27,20 @@ import ru.bchstudio.ponk.WebAsyncTask;
 public class RealService extends Service  implements OnWebAsyncTaskCompleted {
     private Thread mainThread;
     public static Intent serviceIntent = null;
-    private static final String myURL = "http://89.169.90.244:5000/test";
+
 
     public RealService() {
+    }
+
+    protected void setAlarmTimer() {
+        final Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(System.currentTimeMillis());
+        c.add(Calendar.SECOND, 1);
+        Intent intent = new Intent(this, AlarmRecever.class);
+        PendingIntent sender = PendingIntent.getBroadcast(this, 0,intent,0);
+
+        AlarmManager mAlarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        mAlarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), sender);
     }
 
     @Override
@@ -45,20 +57,23 @@ public class RealService extends Service  implements OnWebAsyncTaskCompleted {
         }
 
         startForeground(1010, prepareNotification(R.mipmap.ic_launcher));
+
         newShowToast(getApplication(), "Start Foreground Service");
 
         final OnWebAsyncTaskCompleted lstnr = this;
 
+        //Создаем отдельный поток
         mainThread = new Thread(new Runnable() {
             @Override
             public void run() {
 
+                //Бесконечный цикл
                 boolean run = true;
                 while (run) {
                     try {
 
 
-                        new WebAsyncTask(myURL,lstnr).execute();
+                        new WebAsyncTask(Constants.TEST_URL, Constants.HTTP_REQUEST_TIMEOUT, lstnr).execute();
                         Thread.sleep(1000 * 5);
 
 
@@ -69,10 +84,13 @@ public class RealService extends Service  implements OnWebAsyncTaskCompleted {
                 }
             }
         });
-        mainThread.start();
+        mainThread.start(); //Запускаем поток
 
         return START_NOT_STICKY;
     }
+
+
+
 
     @Override
     public void onDestroy() {
@@ -88,15 +106,19 @@ public class RealService extends Service  implements OnWebAsyncTaskCompleted {
         }
     }
 
+
     @Override
     public void onCreate() {
         super.onCreate();
     }
 
+
     @Override
     public IBinder onBind(Intent intent) {
         return null;
     }
+
+
 
     @Override
     public boolean onUnbind(Intent intent) {
@@ -115,6 +137,7 @@ public class RealService extends Service  implements OnWebAsyncTaskCompleted {
         });
     }
 
+
     //Пример работы с интерфейсом из потока
     public void showToast(final Application application, final String msg) {
         Handler h = new Handler(application.getMainLooper());
@@ -126,16 +149,8 @@ public class RealService extends Service  implements OnWebAsyncTaskCompleted {
         });
     }
 
-    protected void setAlarmTimer() {
-        final Calendar c = Calendar.getInstance();
-        c.setTimeInMillis(System.currentTimeMillis());
-        c.add(Calendar.SECOND, 1);
-        Intent intent = new Intent(this, AlarmRecever.class);
-        PendingIntent sender = PendingIntent.getBroadcast(this, 0,intent,0);
 
-        AlarmManager mAlarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        mAlarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), sender);
-    }
+
 
 
     private Notification prepareNotification(int icon) {

@@ -6,5 +6,6 @@ public class Constants {
     public static final String TEST_URL = "http://89.169.90.244:5000/test";
     public static final String WEATHER_URL = "http://89.169.90.244:5000/moscow";
     public static final int WEATHER_REQUEST_INTERVAL = 1000 * 5;
+    public static final int NOTIFICATION_ID = 1010;
 
 }

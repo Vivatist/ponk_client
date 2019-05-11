@@ -27,6 +27,8 @@ import ru.bchstudio.ponk.WebAsyncTask;
 public class RealService extends Service implements OnWebAsyncTaskCompleted {
     private Thread mainThread;
     public static Intent serviceIntent = null;
+    private static final String channelId = "Channel ID"; //TODO придумать более удачное название
+    private static final String nameChannel = "Channel name"; //TODO придумать более удачное название
 
 
     public RealService() {
@@ -56,7 +58,7 @@ public class RealService extends Service implements OnWebAsyncTaskCompleted {
             return START_NOT_STICKY;
         }
 
-        startForeground(1010, prepareNotification(R.mipmap.ic_launcher));
+        startForeground(Constants.NOTIFICATION_ID, prepareNotification(R.drawable.ic_stat_cloud_done, "MyTitleDone", "MyTextDone"));
 
         newShowToast(getApplication(), "Start Foreground Service");
 
@@ -147,12 +149,12 @@ public class RealService extends Service implements OnWebAsyncTaskCompleted {
     }
 
 
-    private Notification prepareNotification(int icon) {
+    private Notification prepareNotification(int icon, String contentTitle, String contentText) {
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "Channel ID");
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId);
         builder.setSmallIcon(icon);
-        builder.setContentTitle(null);
-        builder.setContentText(null);
+        builder.setContentTitle(contentTitle);
+        builder.setContentText(contentTitle);
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
         builder.setContentIntent(pendingIntent);
@@ -160,7 +162,7 @@ public class RealService extends Service implements OnWebAsyncTaskCompleted {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            manager.createNotificationChannel(new NotificationChannel("Channel ID", "Name channel", NotificationManager.IMPORTANCE_DEFAULT));
+            manager.createNotificationChannel(new NotificationChannel(channelId, nameChannel, NotificationManager.IMPORTANCE_DEFAULT));
         }
 
         return builder.build();
@@ -169,6 +171,22 @@ public class RealService extends Service implements OnWebAsyncTaskCompleted {
 
     @Override
     public void onWebAsyncTaskCompleted(String result) {
-        newShowToast(getApplication(), result);
+
+        Notification notification;
+
+        if (result != null){
+            newShowToast(getApplication(), result);
+            notification = prepareNotification(R.drawable.ic_stat_cloud_done, "MyTitleDone", "MyTextDone");
+        } else {
+            newShowToast(getApplication(), "Ошибка соединения");
+            notification = prepareNotification(R.drawable.ic_stat_cloud_off, "MyTitleOff", "MyTextOff");
+
+        }
+
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(Constants.NOTIFICATION_ID, notification);
+
+
+
     }
 }

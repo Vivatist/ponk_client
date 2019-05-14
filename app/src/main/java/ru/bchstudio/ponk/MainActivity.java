@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCom
 
 
     public void onMyButtonClick(View view) {
-        new WebAsyncTask(Constants.TEST_URL, Constants.HTTP_REQUEST_TIMEOUT, this).execute();
+        new WebAsyncTask(Constants.TEST_URL, Constants.HTTP_REQUEST_TIMEOUT, this, getApplicationContext()  ).execute();
 
 
         //ПРИМЕР ОТПРАВКИ СООБЩЕНИЯ

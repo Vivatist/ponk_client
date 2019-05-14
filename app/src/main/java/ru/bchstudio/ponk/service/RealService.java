@@ -27,8 +27,9 @@ import ru.bchstudio.ponk.WebAsyncTask;
 public class RealService extends Service implements OnWebAsyncTaskCompleted {
     private Thread mainThread;
     public static Intent serviceIntent = null;
-    private static final String channelId = "Channel ID"; //TODO придумать более удачное название
-    private static final String nameChannel = "Channel name"; //TODO придумать более удачное название
+    private static final String CHANNEL_ID = "Channel ID"; //TODO придумать более удачное название
+    private static final String CHANNEL_NAME = "Channel name"; //TODO придумать более удачное название
+    private static final int NOTIFICATION_ID = 1010;
 
 
     public RealService() {
@@ -58,7 +59,7 @@ public class RealService extends Service implements OnWebAsyncTaskCompleted {
             return START_NOT_STICKY;
         }
 
-        startForeground(Constants.NOTIFICATION_ID, prepareNotification(R.drawable.ic_stat_cloud_done, "MyTitleDone", "MyTextDone"));
+        startForeground(NOTIFICATION_ID, prepareNotification(R.drawable.ic_stat_cloud_done, "MyTitleDone", "MyTextDone"));
 
         newShowToast(getApplication(), "Start Foreground Service");
 
@@ -75,7 +76,7 @@ public class RealService extends Service implements OnWebAsyncTaskCompleted {
                     try {
 
 
-                        new WebAsyncTask(Constants.TEST_URL, Constants.HTTP_REQUEST_TIMEOUT, lstnr).execute();
+                        new WebAsyncTask(Constants.TEST_URL, Constants.HTTP_REQUEST_TIMEOUT, lstnr, getApplicationContext()).execute();
                         Thread.sleep(Constants.WEATHER_REQUEST_INTERVAL);
 
 
@@ -151,18 +152,23 @@ public class RealService extends Service implements OnWebAsyncTaskCompleted {
 
     private Notification prepareNotification(int icon, String contentTitle, String contentText) {
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId);
-        builder.setSmallIcon(icon);
-        builder.setContentTitle(contentTitle);
-        builder.setContentText(contentTitle);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID);
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
-        builder.setContentIntent(pendingIntent);
+
+        builder.setSmallIcon(icon)
+                .setContentTitle(contentTitle)
+                .setContentText(contentTitle)
+                .setContentIntent(pendingIntent)
+                .setSound(null);
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            manager.createNotificationChannel(new NotificationChannel(channelId, nameChannel, NotificationManager.IMPORTANCE_DEFAULT));
+            NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_LOW);
+            notificationChannel.setSound(null, null);
+            notificationChannel.setShowBadge(false);
+            manager.createNotificationChannel(notificationChannel);
         }
 
         return builder.build();
@@ -175,16 +181,16 @@ public class RealService extends Service implements OnWebAsyncTaskCompleted {
         Notification notification;
 
         if (result != null){
-            newShowToast(getApplication(), result);
+            if (Constants.ENABLED_DEBUG_TWIST) newShowToast(getApplication(), result);
             notification = prepareNotification(R.drawable.ic_stat_cloud_done, "MyTitleDone", "MyTextDone");
         } else {
-            newShowToast(getApplication(), "Ошибка соединения");
+            if (Constants.ENABLED_DEBUG_TWIST) newShowToast(getApplication(), "Ошибка соединения");
             notification = prepareNotification(R.drawable.ic_stat_cloud_off, "MyTitleOff", "MyTextOff");
 
         }
 
-        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(Constants.NOTIFICATION_ID, notification);
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        mNotificationManager.notify(NOTIFICATION_ID, notification);
 
 
 

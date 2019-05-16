@@ -182,7 +182,7 @@ public class RealService extends Service implements OnWebAsyncTaskCompleted {
 
         if (result != null){
             if (Constants.ENABLED_DEBUG_TWIST) newShowToast(getApplication(), result);
-            notification = prepareNotification(R.drawable.ic_stat_cloud_done, "MyTitleDone", "MyTextDone");
+            notification = prepareNotification(R.drawable.ic_degrees_minus17, "MyTitleDone", "MyTextDone");
         } else {
             if (Constants.ENABLED_DEBUG_TWIST) newShowToast(getApplication(), "Ошибка соединения");
             notification = prepareNotification(R.drawable.ic_stat_cloud_off, "MyTitleOff", "MyTextOff");

@@ -1,5 +1,9 @@
 package ru.bchstudio.ponk;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -7,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -22,6 +27,8 @@ import ru.bchstudio.ponk.service.RealService;
 
 public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCompleted {
 
+    private static final String TEST_CHANNEL_ID = "Test Channel ID"; //TODO придумать более удачное название
+    private static final String TEST_CHANNEL_NAME = "Test Channel name"; //TODO придумать более удачное название
 
     private Intent serviceIntent;
 
@@ -59,6 +66,31 @@ public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCom
     ImageView iv;
 
 
+    private Notification prepareNotification(int icon, String contentTitle, String contentText) {
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, TEST_CHANNEL_ID);
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+
+        builder.setSmallIcon(icon)
+                .setContentTitle(contentTitle)
+                .setContentText(contentTitle)
+                .setContentIntent(pendingIntent)
+                .setSound(null);
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            NotificationChannel notificationChannel = new NotificationChannel(TEST_CHANNEL_ID, TEST_CHANNEL_NAME, NotificationManager.IMPORTANCE_LOW);
+            notificationChannel.setSound(null, null);
+            notificationChannel.setShowBadge(false);
+            manager.createNotificationChannel(notificationChannel);
+        }
+
+        return builder.build();
+
+    }
+
     public Bitmap textAsBitmap(String text, float textSize, int textColor) {
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setTextSize(textSize);
@@ -79,6 +111,11 @@ public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCom
         tvRez.setText(result);
         queryCounter += 1;
         tvCounter.setText(String.valueOf(queryCounter));
+
+        Notification nitifi = prepareNotification((R.drawable.ic_degrees_minus17), "TestTitle", "TestText");
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(1, nitifi);
     }
 
 

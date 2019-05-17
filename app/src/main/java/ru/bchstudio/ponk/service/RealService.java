@@ -14,7 +14,12 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 import android.widget.Toast;
+
+import org.jetbrains.annotations.Nullable;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Calendar;
 
@@ -25,6 +30,8 @@ import ru.bchstudio.ponk.R;
 import ru.bchstudio.ponk.WebAsyncTask;
 
 public class RealService extends Service implements OnWebAsyncTaskCompleted {
+
+    private static final String TAG = WebAsyncTask.class.getName();
     private Thread mainThread;
     public static Intent serviceIntent = null;
     private static final String CHANNEL_ID = "Channel ID"; //TODO придумать более удачное название
@@ -76,7 +83,7 @@ public class RealService extends Service implements OnWebAsyncTaskCompleted {
                     try {
 
 
-                        new WebAsyncTask(Constants.TEST_URL, Constants.HTTP_REQUEST_TIMEOUT, lstnr, getApplicationContext()).execute();
+                        new WebAsyncTask(Constants.WEATHER_URL, Constants.HTTP_REQUEST_TIMEOUT, lstnr, getApplicationContext()).execute();
                         Thread.sleep(Constants.WEATHER_REQUEST_INTERVAL);
 
 
@@ -175,14 +182,50 @@ public class RealService extends Service implements OnWebAsyncTaskCompleted {
 
     }
 
+
+    @Nullable
+    private Integer getIcon(int value){
+
+        String nameResource;
+
+        try {
+            if (value >= 0){
+                nameResource = "ic_degrees_"+ value;
+                return R.drawable.class.getField(nameResource).getInt(getResources());
+            } else {
+                nameResource = "ic_degrees_minus"+ Math.abs(value);
+                return R.drawable.class.getField(nameResource).getInt(getResources());
+            }
+
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            return R.drawable.ic_stat_error_outline;
+        }
+
+        return null;
+    }
+
     @Override
     public void onWebAsyncTaskCompleted(String result) {
 
+        Log.d(TAG, "Ответ от сервера " + result);
         Notification notification;
 
         if (result != null){
             if (Constants.ENABLED_DEBUG_TWIST) newShowToast(getApplication(), result);
-            notification = prepareNotification(R.drawable.ic_degrees_minus17, "MyTitleDone", "MyTextDone");
+
+            try {
+                JSONObject myResponse = new JSONObject(result);
+                int temperature = (int) Math.round(myResponse.getDouble("temp"));
+                Log.d(TAG, "Температура " + temperature);
+                notification = prepareNotification(getIcon(temperature), "MyTitleDone", "MyTextDone");
+            } catch (JSONException e) {
+                e.printStackTrace();
+                if (Constants.ENABLED_DEBUG_TWIST) newShowToast(getApplication(), "Ошибка разбора JSON");
+                notification = prepareNotification(R.drawable.ic_stat_cloud_off, "MyTitleOff", "MyTextOff");
+            }
+
         } else {
             if (Constants.ENABLED_DEBUG_TWIST) newShowToast(getApplication(), "Ошибка соединения");
             notification = prepareNotification(R.drawable.ic_stat_cloud_off, "MyTitleOff", "MyTextOff");

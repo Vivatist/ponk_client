@@ -5,49 +5,54 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.util.Log;
 
 
-import ru.bchstudio.ponk.notifi.CreatorNotification;
-import ru.bchstudio.ponk.MainService;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.Nullable;
+
 import ru.bchstudio.ponk.service.RealService;
 
 
 public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCompleted {
 
-    private static final String TEST_CHANNEL_ID = "Test Channel ID"; //TODO придумать более удачное название
-    private static final String TEST_CHANNEL_NAME = "Test Channel name"; //TODO придумать более удачное название
 
+    private static final String TAG = WebAsyncTask.class.getName();
     private Intent serviceIntent;
+
+
+    TextView tvRez;
+    TextView tvCounter;
+    int queryCounter = 0;
+    EditText editText3;
+
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         if (RealService.serviceIntent == null) {
             serviceIntent = new Intent(this, RealService.class);
             startService(serviceIntent);
         } else {
-            serviceIntent = RealService.serviceIntent;//getInstance().getApplication();
-            Toast.makeText(getApplicationContext(), "already", Toast.LENGTH_LONG).show();
+            serviceIntent = RealService.serviceIntent;
         }
 
         tvRez = findViewById(R.id.textView2);
         tvCounter = findViewById(R.id.textView);
-        iv = findViewById(R.id.imageView);
+        editText3 = findViewById(R.id.editText3);
     }
 
     @Override
@@ -60,13 +65,11 @@ public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCom
     }
 
 
-    TextView tvRez;
-    TextView tvCounter;
-    int queryCounter = 0;
-    ImageView iv;
 
 
     private Notification prepareNotification(int icon, String contentTitle, String contentText) {
+        final String TEST_CHANNEL_ID = "Test Channel ID"; //TODO придумать более удачное название
+        final String TEST_CHANNEL_NAME = "Test Channel name"; //TODO придумать более удачное название
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, TEST_CHANNEL_ID);
         Intent notificationIntent = new Intent(this, MainActivity.class);
@@ -91,20 +94,6 @@ public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCom
 
     }
 
-    public Bitmap textAsBitmap(String text, float textSize, int textColor) {
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setTextSize(textSize);
-        paint.setColor(textColor);
-        paint.setTextAlign(Paint.Align.LEFT);
-        float baseline = -paint.ascent(); // ascent() is negative
-        int width = (int) (paint.measureText(text) + 0.5f); // round
-        int height = (int) (baseline + paint.descent() + 0.5f);
-        Bitmap image = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(image);
-        canvas.drawText(text, 0, baseline, paint);
-        return image;
-    }
-
 
     @Override
     public void onWebAsyncTaskCompleted(String result) {
@@ -112,34 +101,52 @@ public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCom
         queryCounter += 1;
         tvCounter.setText(String.valueOf(queryCounter));
 
-        Notification nitifi = prepareNotification((R.drawable.ic_degrees_minus17), "TestTitle", "TestText");
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.notify(1, nitifi);
     }
 
+
+    @Nullable
+    private Integer getIcon(int value){
+
+        String nameResource;
+
+        try {
+            if (value >= 0){
+                nameResource = "ic_degrees_"+ value;
+                return R.drawable.class.getField(nameResource).getInt(getResources());
+            } else {
+                nameResource = "ic_degrees_minus"+ Math.abs(value);
+                return R.drawable.class.getField(nameResource).getInt(getResources());
+            }
+
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            return null;
+        }
+
+        return null;
+    }
 
     public void onMyButtonClick(View view) {
-        new WebAsyncTask(Constants.TEST_URL, Constants.HTTP_REQUEST_TIMEOUT, this, getApplicationContext()  ).execute();
+        new WebAsyncTask(Constants.WEATHER_URL, Constants.HTTP_REQUEST_TIMEOUT, this, getApplicationContext()  ).execute();
 
+        Integer valueDegrees = Integer.decode(editText3.getText().toString());
 
-        //ПРИМЕР ОТПРАВКИ СООБЩЕНИЯ
-        // Bitmap img =  textAsBitmap("22", 60, Color.RED);
-        // iv.setImageBitmap(img);
-        // CreatorNotification notification = new CreatorNotification("myChnl", getApplicationContext());
-        // notification.send("Test", img);
+        Integer icon = getIcon(valueDegrees);
 
-    }
+        if (icon == null) {
+            icon = R.drawable.ic_stat_name;
+        }
 
-
-    public void onStartClick(View view) {
-        MainService.start(getApplicationContext());
-    }
-
-    public void onStopClick(View view) {
-
+        Notification notifi = prepareNotification(icon, "TestTitle", "TestText");
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.notify(1, notifi);
 
     }
+
+
+
 
 
 }

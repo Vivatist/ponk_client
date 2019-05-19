@@ -165,8 +165,9 @@ public class RealService extends Service implements OnWebAsyncTaskCompleted {
 
         builder.setSmallIcon(icon)
                 .setContentTitle(contentTitle)
-                .setContentText(contentTitle)
+                .setContentText(contentText)
                 .setContentIntent(pendingIntent)
+               // .setWhen()
                 .setSound(null);
 
 
@@ -217,9 +218,11 @@ public class RealService extends Service implements OnWebAsyncTaskCompleted {
 
             try {
                 JSONObject myResponse = new JSONObject(result);
-                int temperature = (int) Math.round(myResponse.getDouble("temp"));
-                Log.d(TAG, "Температура " + temperature);
-                notification = prepareNotification(getIcon(temperature), "MyTitleDone", "MyTextDone");
+                int temp = (int) Math.round(myResponse.getDouble("temp"));
+                int humidity = myResponse.getInt("humidity");
+                int wind_spd = (int) Math.round(myResponse.getDouble("wind_spd"));
+                int wind_deg = (int) Math.round(myResponse.getDouble("wind_deg"));
+                notification = prepareNotification(getIcon(temp), "Ветер " + wind_spd + "м/с", "Влажность " + humidity + "%");
             } catch (JSONException e) {
                 e.printStackTrace();
                 if (Constants.ENABLED_DEBUG_TWIST) newShowToast(getApplication(), "Ошибка разбора JSON");
@@ -228,7 +231,7 @@ public class RealService extends Service implements OnWebAsyncTaskCompleted {
 
         } else {
             if (Constants.ENABLED_DEBUG_TWIST) newShowToast(getApplication(), "Ошибка соединения");
-            notification = prepareNotification(R.drawable.ic_stat_cloud_off, "MyTitleOff", "MyTextOff");
+            notification = prepareNotification(R.drawable.ic_stat_cloud_off, "Нет связи", "");
 
         }
 

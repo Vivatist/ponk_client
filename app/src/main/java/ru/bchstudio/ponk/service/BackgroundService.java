@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
-import android.os.Looper;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
@@ -21,15 +20,19 @@ import org.jetbrains.annotations.Nullable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import ru.bchstudio.ponk.Constants;
 import ru.bchstudio.ponk.MainActivity;
-import ru.bchstudio.ponk.OnWebAsyncTaskCompleted;
+import ru.bchstudio.ponk.WeatherPOJO;
+import ru.bchstudio.ponk.web.OnWebAsyncTaskCompleted;
 import ru.bchstudio.ponk.R;
-import ru.bchstudio.ponk.WebAsyncTask;
+import ru.bchstudio.ponk.web.WebAsyncTask;
 
-public class RealService extends Service implements OnWebAsyncTaskCompleted {
+public class BackgroundService extends Service implements OnWebAsyncTaskCompleted {
 
     private static final String TAG = WebAsyncTask.class.getName();
     private Thread mainThread;
@@ -39,7 +42,7 @@ public class RealService extends Service implements OnWebAsyncTaskCompleted {
     private static final int NOTIFICATION_ID = 1010;
 
 
-    public RealService() {
+    public BackgroundService() {
     }
 
     protected void setAlarmTimer() {
@@ -66,9 +69,9 @@ public class RealService extends Service implements OnWebAsyncTaskCompleted {
             return START_NOT_STICKY;
         }
 
-        startForeground(NOTIFICATION_ID, prepareNotification(R.drawable.ic_stat_cloud_done, "MyTitleDone", "MyTextDone"));
+        startForeground(NOTIFICATION_ID, prepareNotification(R.drawable.ic_stat_cloud_done, "MyTitleDone", "MyTextDone", Calendar.getInstance().getTime()));
 
-        newShowToast(getApplication(), "Start Foreground Service");
+        if (Constants.ENABLED_DEBUG_TWIST) showToast(getApplication(), "Start Foreground Service");
 
         final OnWebAsyncTaskCompleted lstnr = this;
 
@@ -133,17 +136,6 @@ public class RealService extends Service implements OnWebAsyncTaskCompleted {
     }
 
 
-    //Пример работы с интерфейсом из потока
-    public void newShowToast(final Application application, final String msg) {
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                Toast toast = Toast.makeText(application, msg, Toast.LENGTH_SHORT);
-                toast.show();
-            }
-        });
-    }
-
 
     //Пример работы с интерфейсом из потока
     public void showToast(final Application application, final String msg) {
@@ -157,7 +149,7 @@ public class RealService extends Service implements OnWebAsyncTaskCompleted {
     }
 
 
-    private Notification prepareNotification(int icon, String contentTitle, String contentText) {
+    private Notification prepareNotification(int icon, String contentTitle, String contentText, Date upd_time) {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID);
         Intent notificationIntent = new Intent(this, MainActivity.class);
@@ -167,9 +159,8 @@ public class RealService extends Service implements OnWebAsyncTaskCompleted {
                 .setContentTitle(contentTitle)
                 .setContentText(contentText)
                 .setContentIntent(pendingIntent)
-               // .setWhen()
+                .setWhen(upd_time.getTime())
                 .setSound(null);
-
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -184,29 +175,34 @@ public class RealService extends Service implements OnWebAsyncTaskCompleted {
     }
 
 
-    @Nullable
-    private Integer getIcon(int value){
+
+    private int getIcon(int value){
 
         String nameResource;
-
+        int result;
         try {
             if (value >= 0){
                 nameResource = "ic_degrees_"+ value;
                 return R.drawable.class.getField(nameResource).getInt(getResources());
             } else {
                 nameResource = "ic_degrees_minus"+ Math.abs(value);
-                return R.drawable.class.getField(nameResource).getInt(getResources());
+                result = R.drawable.class.getField(nameResource).getInt(getResources());
             }
 
         } catch (IllegalAccessException e) {
             e.printStackTrace();
+            result =  R.drawable.ic_stat_error_outline;
         } catch (NoSuchFieldException e) {
-            return R.drawable.ic_stat_error_outline;
+            result =  R.drawable.ic_stat_error_outline;
         }
 
-        return null;
+        return result;
     }
 
+
+
+
+// Происходит, когда от сервера получен ответ
     @Override
     public void onWebAsyncTaskCompleted(String result) {
 
@@ -214,24 +210,14 @@ public class RealService extends Service implements OnWebAsyncTaskCompleted {
         Notification notification;
 
         if (result != null){
-            if (Constants.ENABLED_DEBUG_TWIST) newShowToast(getApplication(), result);
+            if (Constants.ENABLED_DEBUG_TWIST) showToast(getApplication(), result);
 
-            try {
-                JSONObject myResponse = new JSONObject(result);
-                int temp = (int) Math.round(myResponse.getDouble("temp"));
-                int humidity = myResponse.getInt("humidity");
-                int wind_spd = (int) Math.round(myResponse.getDouble("wind_spd"));
-                int wind_deg = (int) Math.round(myResponse.getDouble("wind_deg"));
-                notification = prepareNotification(getIcon(temp), "Ветер " + wind_spd + "м/с", "Влажность " + humidity + "%");
-            } catch (JSONException e) {
-                e.printStackTrace();
-                if (Constants.ENABLED_DEBUG_TWIST) newShowToast(getApplication(), "Ошибка разбора JSON");
-                notification = prepareNotification(R.drawable.ic_stat_cloud_off, "MyTitleOff", "MyTextOff");
-            }
+            WeatherPOJO weather = new WeatherPOJO(result);
+            notification = prepareNotification(getIcon(weather.getTemp()), "Ветер " + weather.getWind_spd() + "м/с", "Влажность " + weather.getHumidity() + "%", weather.getUpd_time());
 
         } else {
-            if (Constants.ENABLED_DEBUG_TWIST) newShowToast(getApplication(), "Ошибка соединения");
-            notification = prepareNotification(R.drawable.ic_stat_cloud_off, "Нет связи", "");
+            if (Constants.ENABLED_DEBUG_TWIST) showToast(getApplication(), "Ошибка соединения");
+            notification = prepareNotification(R.drawable.ic_stat_cloud_off, "Нет связи", "", Calendar.getInstance().getTime());
 
         }
 

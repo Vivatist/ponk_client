@@ -16,15 +16,10 @@ public class RebootRecever extends BroadcastReceiver {
                 Intent in = new Intent(context, RestartService.class);
                 context.startForegroundService(in);
             } else {
-                Intent in = new Intent(context, RealService.class);
+                Intent in = new Intent(context, BackgroundService.class);
                 context.startService(in);
             }
         }
 
-        //TODO чтобы включить запуск сервиса JobIntentService - раскомментировать
-//        if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-//
-//             MainService.enqueueWork(context, new Intent());
-//        }
     }
 }

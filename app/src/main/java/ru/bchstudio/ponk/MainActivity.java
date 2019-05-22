@@ -13,13 +13,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.util.Log;
 
 
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.Nullable;
 
-import ru.bchstudio.ponk.service.RealService;
+import ru.bchstudio.ponk.service.BackgroundService;
+import ru.bchstudio.ponk.web.OnWebAsyncTaskCompleted;
+import ru.bchstudio.ponk.web.WebAsyncTask;
 
 
 public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCompleted {
@@ -43,11 +43,11 @@ public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCom
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (RealService.serviceIntent == null) {
-            serviceIntent = new Intent(this, RealService.class);
+        if (BackgroundService.serviceIntent == null) {
+            serviceIntent = new Intent(this, BackgroundService.class);
             startService(serviceIntent);
         } else {
-            serviceIntent = RealService.serviceIntent;
+            serviceIntent = BackgroundService.serviceIntent;
         }
 
         tvRez = findViewById(R.id.textView2);

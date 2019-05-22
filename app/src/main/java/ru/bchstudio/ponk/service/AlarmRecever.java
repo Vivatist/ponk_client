@@ -13,7 +13,7 @@ public class AlarmRecever extends BroadcastReceiver{
             Intent in = new Intent(context, RestartService.class);
             context.startForegroundService(in);
         } else {
-            Intent in = new Intent(context, RealService.class);
+            Intent in = new Intent(context, BackgroundService.class);
             context.startService(in);
         }
     }

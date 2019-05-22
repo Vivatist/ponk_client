@@ -1,14 +1,10 @@
-package ru.bchstudio.ponk;
+package ru.bchstudio.ponk.web;
 
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -16,11 +12,12 @@ import java.net.URL;
 import java.security.KeyStore;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
-import java.security.cert.X509Certificate;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManagerFactory;
+
+import ru.bchstudio.ponk.R;
 
 public class WebAsyncTask extends AsyncTask<Void, String, String> { //change Object to required type
 
@@ -61,7 +58,6 @@ public class WebAsyncTask extends AsyncTask<Void, String, String> { //change Obj
         }
         bufferedReader.close();
 
-        Log.d(TAG,"Response string: " + response.toString());
         return response.toString();
     }
 

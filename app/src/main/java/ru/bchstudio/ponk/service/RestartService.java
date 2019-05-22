@@ -47,7 +47,7 @@ public class RestartService extends Service {
         startForeground(9, notification);
 
         /////////////////////////////////////////////////////////////////////
-        Intent in = new Intent(this, RealService.class);
+        Intent in = new Intent(this, BackgroundService.class);
         startService(in);
 
         //stopForeground(true);

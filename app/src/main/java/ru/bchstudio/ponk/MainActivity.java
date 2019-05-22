@@ -13,8 +13,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.Nullable;
 
 import ru.bchstudio.ponk.service.BackgroundService;
@@ -36,6 +40,17 @@ public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCom
 
 
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -94,6 +109,10 @@ public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCom
 
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MessageEvent event) {
+        Toast.makeText(getApplicationContext(), event.message, Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     public void onWebAsyncTaskCompleted(String result) {

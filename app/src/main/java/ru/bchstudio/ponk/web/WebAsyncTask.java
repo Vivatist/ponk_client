@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -17,6 +19,7 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManagerFactory;
 
+import ru.bchstudio.ponk.MessageEvent;
 import ru.bchstudio.ponk.R;
 
 public class WebAsyncTask extends AsyncTask<Void, String, String> { //change Object to required type
@@ -134,6 +137,7 @@ public class WebAsyncTask extends AsyncTask<Void, String, String> { //change Obj
     @Override
     protected void onPostExecute(final String result) {
         listener.onWebAsyncTaskCompleted(result);
+        EventBus.getDefault().post(new MessageEvent(result));
     }
 
 

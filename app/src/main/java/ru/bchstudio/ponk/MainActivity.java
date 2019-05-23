@@ -22,6 +22,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.Nullable;
 
 import ru.bchstudio.ponk.service.BackgroundService;
+import ru.bchstudio.ponk.web.ResponseEvent;
 import ru.bchstudio.ponk.web.OnWebAsyncTaskCompleted;
 import ru.bchstudio.ponk.web.WebAsyncTask;
 
@@ -110,9 +111,10 @@ public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCom
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(MessageEvent event) {
+    public void onResponseEvent(ResponseEvent event) {
         Toast.makeText(getApplicationContext(), event.message, Toast.LENGTH_SHORT).show();
     }
+
 
     @Override
     public void onWebAsyncTaskCompleted(String result) {

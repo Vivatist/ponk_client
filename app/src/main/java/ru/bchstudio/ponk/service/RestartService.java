@@ -30,6 +30,8 @@ public class RestartService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "default");
         builder.setSmallIcon(R.mipmap.ic_launcher);
         builder.setContentTitle(null);

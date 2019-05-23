@@ -16,12 +16,6 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
-import org.jetbrains.annotations.Nullable;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -45,6 +39,7 @@ public class BackgroundService extends Service implements OnWebAsyncTaskComplete
     public BackgroundService() {
     }
 
+    //Запускаем WatchDog
     protected void setAlarmTimer() {
         final Calendar c = Calendar.getInstance();
         c.setTimeInMillis(System.currentTimeMillis());
@@ -138,6 +133,7 @@ public class BackgroundService extends Service implements OnWebAsyncTaskComplete
 
 
     //Пример работы с интерфейсом из потока
+    //выводит всплывающее сообщение
     public void showToast(final Application application, final String msg) {
         Handler h = new Handler(application.getMainLooper());
         h.post(new Runnable() {

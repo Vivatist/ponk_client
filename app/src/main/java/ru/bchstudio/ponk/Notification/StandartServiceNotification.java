@@ -1,4 +1,4 @@
-package ru.bchstudio.ponk.service;
+package ru.bchstudio.ponk.Notification;
 
 import android.annotation.SuppressLint;
 import android.app.Notification;
@@ -19,7 +19,7 @@ import ru.bchstudio.ponk.R;
 
 
 @SuppressLint("Registered")
-public class ServiceNotification  implements ServiceNotificationInterface {
+public class StandartServiceNotification implements ServiceNotification {
 
     private static final String CHANNEL_ID = "Channel ID"; //TODO придумать более удачное название
     private static final String CHANNEL_NAME = "Channel name"; //TODO придумать более удачное название
@@ -34,35 +34,52 @@ public class ServiceNotification  implements ServiceNotificationInterface {
     private Date upd_time;
 
 
-    ServiceNotification(Context context) {
+    public StandartServiceNotification(Context context) {
         this.context = context;
         this.upd_time = Calendar.getInstance().getTime();
     }
 
-    public void setTemperature(int temperature) {
+    @Override
+    public StandartServiceNotification setTemperature(int temperature) {
         this.icon = getIcon(temperature);
+        return this;
     }
 
-    public void setContentTitle(String contentTitle) {
+    @Override
+    public StandartServiceNotification setContentTitle(String contentTitle) {
         this.contentTitle = contentTitle;
+        return this;
     }
 
-    public void setContentText(String contentText) {
+    @Override
+    public StandartServiceNotification setContentText(String contentText) {
         this.contentText = contentText;
+        return this;
     }
 
-    public void setUpd_time(Date upd_time) {
+    @Override
+    public StandartServiceNotification setUpd_time(Date upd_time) {
         this.upd_time = upd_time;
+        return this;
     }
 
-    public void setIcon(int icon){
+    @Override
+    public StandartServiceNotification setIcon(int icon){
         this.icon = icon;
+        return this;
+    }
+
+    @Override
+    public void show() {
+        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(getId(), getNotification());
     }
 
     @Override
     public Notification getNotification() {
         return prepareNotification( context,  icon,  contentTitle,  contentText,  upd_time);
     }
+
 
 
 

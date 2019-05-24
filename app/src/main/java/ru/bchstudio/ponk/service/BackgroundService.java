@@ -2,7 +2,6 @@ package ru.bchstudio.ponk.service;
 
 import android.app.AlarmManager;
 import android.app.Application;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
@@ -17,6 +16,9 @@ import java.util.Calendar;
 
 import ru.bchstudio.ponk.Constants;
 
+import ru.bchstudio.ponk.Notification.OfflineServiceNotification;
+import ru.bchstudio.ponk.Notification.ServiceNotification;
+import ru.bchstudio.ponk.Notification.StandartServiceNotification;
 import ru.bchstudio.ponk.WeatherPOJO;
 import ru.bchstudio.ponk.web.OnWebAsyncTaskCompleted;
 import ru.bchstudio.ponk.R;
@@ -27,7 +29,7 @@ public class BackgroundService extends Service implements OnWebAsyncTaskComplete
     private static final String TAG = WebAsyncTask.class.getName();
     private Thread mainThread;
     public static Intent serviceIntent = null;
-    private ServiceNotificationInterface serviceNotification;
+    //private ServiceNotification serviceNotification;
 
     public BackgroundService() {
     }
@@ -49,8 +51,8 @@ public class BackgroundService extends Service implements OnWebAsyncTaskComplete
         }
 
 
-        serviceNotification = new ServiceNotification(this);
-        startForeground(serviceNotification.getId(), serviceNotification.getNotification());
+        ServiceNotification notification = new StandartServiceNotification(this);
+        startForeground(notification.getId(), notification.getNotification());
 
         if (Constants.ENABLED_DEBUG_TWIST) showToast(getApplication(), "Start Foreground Service");
 
@@ -148,39 +150,32 @@ public class BackgroundService extends Service implements OnWebAsyncTaskComplete
 
 
 
-
-
-
-
 // Происходит, когда от сервера получен ответ
     @Override
     public void onWebAsyncTaskCompleted(String result) {
 
         Log.d(TAG, "Ответ от сервера " + result);
 
+
         if (result != null){
-            if (Constants.ENABLED_DEBUG_TWIST) showToast(getApplication(), result);
 
             WeatherPOJO weather = new WeatherPOJO(result);
-            serviceNotification.setTemperature(weather.getTemp());
-            serviceNotification.setContentTitle("Ветер " + weather.getWind_spd() + "м/с");
-            serviceNotification.setContentText("Влажность " + weather.getHumidity() + "%");
-            serviceNotification.setUpd_time(weather.getUpd_time());
+
+            ServiceNotification notification = new StandartServiceNotification(this);
+            notification.setTemperature(weather.getTemp())
+                    .setContentTitle("Ветер " + weather.getWind_spd() + "м/с")
+                    .setContentText("Влажность " + weather.getHumidity() + "%")
+                    .setUpd_time(weather.getUpd_time())
+                    .show();
 
         } else {
-            if (Constants.ENABLED_DEBUG_TWIST) showToast(getApplication(), "Ошибка соединения");
-            serviceNotification.setIcon(R.drawable.ic_stat_cloud_off);
-            serviceNotification.setContentTitle("Нет связи");
-            serviceNotification.setContentText("");
-            serviceNotification.setUpd_time(Calendar.getInstance().getTime());
+            ServiceNotification notification = new OfflineServiceNotification(this);
+            notification.show();
 
 
         }
 
-        NotificationManager mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        mNotificationManager.notify(serviceNotification.getId(), serviceNotification.getNotification());
-
-
 
     }
+
 }

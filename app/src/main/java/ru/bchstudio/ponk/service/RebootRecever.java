@@ -13,7 +13,7 @@ public class RebootRecever extends BroadcastReceiver {
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                Intent in = new Intent(context, RestartService.class);
+                Intent in = new Intent(context, BackgroundService.class);
                 context.startForegroundService(in);
             } else {
                 Intent in = new Intent(context, BackgroundService.class);

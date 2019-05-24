@@ -5,11 +5,9 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 
 import java.util.Calendar;
@@ -29,20 +27,19 @@ public class ServiceNotification  implements ServiceNotificationInterface {
     private Context context;
 
 
-    private int temperature = 0;
+
     private int icon;
     private String contentTitle = null;
     private String contentText = null;
     private Date upd_time;
 
 
-    public ServiceNotification(Context context) {
+    ServiceNotification(Context context) {
         this.context = context;
         this.upd_time = Calendar.getInstance().getTime();
     }
 
     public void setTemperature(int temperature) {
-        this.temperature = temperature;
         this.icon = getIcon(temperature);
     }
 
@@ -86,7 +83,7 @@ public class ServiceNotification  implements ServiceNotificationInterface {
                 .setSound(null);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationManager manager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+            NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_LOW);
             notificationChannel.setSound(null, null);
             notificationChannel.setShowBadge(false);

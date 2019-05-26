@@ -22,12 +22,11 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.Nullable;
 
 import ru.bchstudio.ponk.service.BackgroundService;
-import ru.bchstudio.ponk.web.ResponseEvent;
-import ru.bchstudio.ponk.web.OnWebAsyncTaskCompleted;
+import ru.bchstudio.ponk.web.ResponseCurrentWeatherEvent;
 import ru.bchstudio.ponk.web.WebAsyncTask;
 
 
-public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCompleted {
+public class MainActivity extends AppCompatActivity {
 
 
     private static final String TAG = WebAsyncTask.class.getName();
@@ -111,18 +110,10 @@ public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCom
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onResponseEvent(ResponseEvent event) {
-        Toast.makeText(getApplicationContext(), event.message, Toast.LENGTH_SHORT).show();
+    public void onResponseEvent(ResponseCurrentWeatherEvent event) {
+       Toast.makeText(getApplicationContext(), event.message, Toast.LENGTH_SHORT).show();
     }
 
-
-    @Override
-    public void onWebAsyncTaskCompleted(String result) {
-        tvRez.setText(result);
-        queryCounter += 1;
-        tvCounter.setText(String.valueOf(queryCounter));
-
-    }
 
 
     @Nullable
@@ -149,20 +140,7 @@ public class MainActivity extends AppCompatActivity implements OnWebAsyncTaskCom
     }
 
     public void onMyButtonClick(View view) {
-        new WebAsyncTask(Constants.WEATHER_URL, Constants.HTTP_REQUEST_TIMEOUT, this, getApplicationContext()  ).execute();
-
-        Integer valueDegrees = Integer.decode(editText3.getText().toString());
-
-        Integer icon = getIcon(valueDegrees);
-
-        if (icon == null) {
-            icon = R.drawable.ic_stat_name;
-        }
-
-        Notification notifi = prepareNotification(icon, "TestTitle", "TestText");
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.notify(1, notifi);
+        new WebAsyncTask(Constants.TEST_URL, Constants.HTTP_REQUEST_TIMEOUT, getApplicationContext()  ).execute();
 
     }
 

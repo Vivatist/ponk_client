@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
-import android.util.Log;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -18,45 +17,36 @@ import ru.bchstudio.ponk.Constants;
 
 import ru.bchstudio.ponk.Notification.OfflineServiceNotification;
 import ru.bchstudio.ponk.Notification.ServiceNotification;
-import ru.bchstudio.ponk.Notification.StandartServiceNotification;
-import ru.bchstudio.ponk.WeatherPOJO;
-import ru.bchstudio.ponk.web.OnWebAsyncTaskCompleted;
-import ru.bchstudio.ponk.R;
+import ru.bchstudio.ponk.business.MainEventDispatcher;
 import ru.bchstudio.ponk.web.WebAsyncTask;
 
-public class BackgroundService extends Service implements OnWebAsyncTaskCompleted {
+public class BackgroundService extends Service {
 
-    private static final String TAG = WebAsyncTask.class.getName();
+
     private Thread mainThread;
     public static Intent serviceIntent = null;
-    //private ServiceNotification serviceNotification;
-
-    public BackgroundService() {
-    }
-
 
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
+        //Инициализация Диспетчера
+        MainEventDispatcher mainEventDispatcher = new MainEventDispatcher(getApplicationContext());
 
 
         serviceIntent = intent;
-
-
-        if (intent == null) {
+        if (serviceIntent == null) {
             stopForeground(true);
             stopSelf();
             return START_NOT_STICKY;
         }
 
 
-        ServiceNotification notification = new StandartServiceNotification(this);
+        ServiceNotification notification = new OfflineServiceNotification(this);
         startForeground(notification.getId(), notification.getNotification());
 
         if (Constants.ENABLED_DEBUG_TWIST) showToast(getApplication(), "Start Foreground Service");
 
-        final OnWebAsyncTaskCompleted lstnr = this;
 
         //Создаем отдельный поток
         mainThread = new Thread(new Runnable() {
@@ -69,7 +59,7 @@ public class BackgroundService extends Service implements OnWebAsyncTaskComplete
                     try {
 
 
-                        new WebAsyncTask(Constants.WEATHER_URL, Constants.HTTP_REQUEST_TIMEOUT, lstnr, getApplicationContext()).execute();
+                        new WebAsyncTask(Constants.WEATHER_URL, Constants.HTTP_REQUEST_TIMEOUT, getApplicationContext()).execute();
                         Thread.sleep(Constants.WEATHER_REQUEST_INTERVAL);
 
 
@@ -147,35 +137,5 @@ public class BackgroundService extends Service implements OnWebAsyncTaskComplete
     }
 
 
-
-
-
-// Происходит, когда от сервера получен ответ
-    @Override
-    public void onWebAsyncTaskCompleted(String result) {
-
-        Log.d(TAG, "Ответ от сервера " + result);
-
-
-        if (result != null){
-
-            WeatherPOJO weather = new WeatherPOJO(result);
-
-            ServiceNotification notification = new StandartServiceNotification(this);
-            notification.setTemperature(weather.getTemp())
-                    .setContentTitle("Ветер " + weather.getWind_spd() + "м/с")
-                    .setContentText("Влажность " + weather.getHumidity() + "%")
-                    .setUpd_time(weather.getUpd_time())
-                    .show();
-
-        } else {
-            ServiceNotification notification = new OfflineServiceNotification(this);
-            notification.show();
-
-
-        }
-
-
-    }
 
 }

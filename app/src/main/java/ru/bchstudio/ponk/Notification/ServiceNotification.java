@@ -1,19 +1,65 @@
 package ru.bchstudio.ponk.Notification;
 
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
+import ru.bchstudio.ponk.R;
 
-import java.util.Date;
+public abstract class ServiceNotification {
 
-public interface ServiceNotification {
-    Notification getNotification() ;
-    int getId();
+    static final String CHANNEL_ID = "Channel ID"; //TODO придумать более удачное название
+    static final String CHANNEL_NAME = "Channel name"; //TODO придумать более удачное название
+    static final int NOTIFICATION_ID = 1010;
+    Context context;
 
-    ServiceNotification setContentTitle(String contentTitle);
-    ServiceNotification setTemperature(int temp);
-    ServiceNotification setContentText(String contentText);
-    ServiceNotification setUpd_time(Date upd_time);
-    ServiceNotification setIcon(int icon);
 
-    void show();
+
+    ServiceNotification(Context context){
+       this.context = context;
+    }
+
+
+
+    public abstract Notification getNotification();
+
+
+
+    public int getId() {
+        return NOTIFICATION_ID;
+    }
+
+
+
+    public void show() {
+        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(getId(), getNotification());
+    }
+
+
+
+    int getIcon(int value){
+
+        String nameResource;
+        int result;
+        try {
+            if (value >= 0){
+                nameResource = "ic_degrees_"+ value;
+                return R.drawable.class.getField(nameResource).getInt(context.getResources());
+            } else {
+                nameResource = "ic_degrees_minus"+ Math.abs(value);
+                result = R.drawable.class.getField(nameResource).getInt(context.getResources());
+            }
+
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            result =  R.drawable.ic_stat_error_outline;
+        } catch (NoSuchFieldException e) {
+            result =  R.drawable.ic_stat_error_outline;
+        }
+
+        return result;
+    }
+
+
+
 }

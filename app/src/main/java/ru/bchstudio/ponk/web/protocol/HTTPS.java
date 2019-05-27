@@ -1,12 +1,10 @@
-package ru.bchstudio.ponk.web;
+package ru.bchstudio.ponk.web.protocol;
 
 import android.content.Context;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.KeyStore;
 import java.security.cert.Certificate;
@@ -21,12 +19,14 @@ import ru.bchstudio.ponk.R;
 public class HTTPS implements WebProtocol {
 
     @org.jetbrains.annotations.NotNull
-    public  String doGet(Context context, String url, int httpRequestTimeout) throws Exception {
+    public  String doGet(String url, int httpRequestTimeout) throws Exception {
 
 // Load CAs from an InputStream
 // (could be from a resource or ByteArrayInputStream or ...)
         CertificateFactory cf = CertificateFactory.getInstance("X.509");
 // From https://www.washington.edu/itconnect/security/ca/load-der.crt
+
+        Context context= null; //TODO придумать как передать сюда контекст либо напрямую файл сертификата, без этого не будет работать
         InputStream cert = context.getResources().openRawResource(R.raw.cert);
         Certificate ca = cf.generateCertificate(cert);
         cert.close();

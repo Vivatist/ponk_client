@@ -1,6 +1,4 @@
-package ru.bchstudio.ponk.web;
-
-import android.content.Context;
+package ru.bchstudio.ponk.web.protocol;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -10,7 +8,7 @@ import java.net.URL;
 public class HTTP implements WebProtocol {
 
     @org.jetbrains.annotations.NotNull
-    public  String doGet(Context context, String url, int httpRequestTimeout) throws Exception {
+    public  String doGet(String url, int httpRequestTimeout) throws Exception {
 
         URL obj = new URL(url);
         HttpURLConnection connection = (HttpURLConnection) obj.openConnection();

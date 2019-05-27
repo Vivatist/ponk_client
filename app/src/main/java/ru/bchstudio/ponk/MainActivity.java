@@ -22,7 +22,8 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.Nullable;
 
 import ru.bchstudio.ponk.service.BackgroundService;
-import ru.bchstudio.ponk.web.ResponseCurrentWeatherEvent;
+import ru.bchstudio.ponk.web.events.ResponseCurrentWeatherEvent;
+import ru.bchstudio.ponk.web.events.ResponseTestEvent;
 import ru.bchstudio.ponk.web.WebAsyncTask;
 
 
@@ -140,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onMyButtonClick(View view) {
-        new WebAsyncTask(Constants.TEST_URL, Constants.HTTP_REQUEST_TIMEOUT, getApplicationContext()  ).execute();
+        new WebAsyncTask(Constants.TEST_URL, Constants.HTTP_REQUEST_TIMEOUT, new ResponseTestEvent()).execute();
 
     }
 

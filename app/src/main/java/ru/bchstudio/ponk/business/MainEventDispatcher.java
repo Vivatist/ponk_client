@@ -11,7 +11,8 @@ import ru.bchstudio.ponk.Notification.OfflineServiceNotification;
 import ru.bchstudio.ponk.Notification.ServiceNotification;
 import ru.bchstudio.ponk.Notification.StandartServiceNotification;
 import ru.bchstudio.ponk.WeatherPOJO;
-import ru.bchstudio.ponk.web.ResponseCurrentWeatherEvent;
+import ru.bchstudio.ponk.web.events.ResponseCurrentWeatherEvent;
+import ru.bchstudio.ponk.web.events.ResponseTestEvent;
 import ru.bchstudio.ponk.web.WebAsyncTask;
 
 public class MainEventDispatcher {
@@ -32,7 +33,7 @@ public class MainEventDispatcher {
 
 
     @Subscribe
-    public void onHttpResponseCurrentWeatherEvent(ResponseCurrentWeatherEvent event) {
+    public void onResponseCurrentWeatherEvent(ResponseCurrentWeatherEvent event) {
         Toast.makeText(context, event.message, Toast.LENGTH_SHORT).show();
 
         String result = event.message;
@@ -57,5 +58,11 @@ public class MainEventDispatcher {
 
 
         }
+    }
+
+
+    @Subscribe
+    public void onResponseTestEvent(ResponseTestEvent event) {
+        Toast.makeText(context, "Тестовый запрос. Ответ: " + event.message, Toast.LENGTH_SHORT).show();
     }
 }

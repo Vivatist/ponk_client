@@ -18,6 +18,7 @@ import ru.bchstudio.ponk.Constants;
 import ru.bchstudio.ponk.Notification.OfflineServiceNotification;
 import ru.bchstudio.ponk.Notification.ServiceNotification;
 import ru.bchstudio.ponk.business.MainEventDispatcher;
+import ru.bchstudio.ponk.web.events.ResponseCurrentWeatherEvent;
 import ru.bchstudio.ponk.web.WebAsyncTask;
 
 public class BackgroundService extends Service {
@@ -59,7 +60,7 @@ public class BackgroundService extends Service {
                     try {
 
 
-                        new WebAsyncTask(Constants.WEATHER_URL, Constants.HTTP_REQUEST_TIMEOUT, getApplicationContext()).execute();
+                        new WebAsyncTask(Constants.WEATHER_URL, Constants.HTTP_REQUEST_TIMEOUT, new ResponseCurrentWeatherEvent()).execute();
                         Thread.sleep(Constants.WEATHER_REQUEST_INTERVAL);
 
 

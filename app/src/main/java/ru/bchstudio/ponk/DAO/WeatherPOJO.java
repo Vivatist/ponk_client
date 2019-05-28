@@ -1,4 +1,4 @@
-package ru.bchstudio.ponk;
+package ru.bchstudio.ponk.DAO;
 
 import android.annotation.SuppressLint;
 import android.util.Log;

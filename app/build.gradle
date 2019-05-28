@@ -26,5 +26,11 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'org.jetbrains:annotations-java5:15.0'
-    implementation 'org.greenrobot:eventbus:3.0.0'
+
+    // https://mvnrepository.com/artifact/org.greenrobot/eventbus
+    implementation group: 'org.greenrobot', name: 'eventbus', version: '3.1.1'
+
+    // https://mvnrepository.com/artifact/com.j256.ormlite/ormlite-android
+    implementation group: 'com.j256.ormlite', name: 'ormlite-android', version: '5.1'
+
 }

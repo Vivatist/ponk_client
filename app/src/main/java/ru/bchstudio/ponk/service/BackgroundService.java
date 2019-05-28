@@ -15,9 +15,8 @@ import java.util.Calendar;
 
 import ru.bchstudio.ponk.Constants;
 
-import ru.bchstudio.ponk.Notification.OfflineServiceNotification;
-import ru.bchstudio.ponk.Notification.ServiceNotification;
-import ru.bchstudio.ponk.business.MainEventDispatcher;
+import ru.bchstudio.ponk.notification.OfflineServiceNotification;
+import ru.bchstudio.ponk.notification.ServiceNotification;
 import ru.bchstudio.ponk.web.events.ResponseCurrentWeatherEvent;
 import ru.bchstudio.ponk.web.WebAsyncTask;
 
@@ -31,8 +30,7 @@ public class BackgroundService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        //Инициализация Диспетчера
-        MainEventDispatcher mainEventDispatcher = new MainEventDispatcher(getApplicationContext());
+
 
 
         serviceIntent = intent;

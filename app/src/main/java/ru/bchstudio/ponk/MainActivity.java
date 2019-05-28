@@ -10,17 +10,24 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.j256.ormlite.table.TableUtils;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
+import ru.bchstudio.ponk.DAO.User;
+import ru.bchstudio.ponk.DAO.UserDao;
 import ru.bchstudio.ponk.service.BackgroundService;
 import ru.bchstudio.ponk.web.events.ResponseCurrentWeatherEvent;
 import ru.bchstudio.ponk.web.events.ResponseTestEvent;
@@ -143,6 +150,24 @@ public class MainActivity extends AppCompatActivity {
     public void onMyButtonClick(View view) {
         new WebAsyncTask(Constants.TEST_URL, Constants.HTTP_REQUEST_TIMEOUT, new ResponseTestEvent()).execute();
 
+
+        UserDao userDao = new UserDao(this);
+        User user = new User();
+        user.setName("Юзер 1");
+        user.setDesc("й1");
+
+        userDao.addUser(user);
+        userDao.addUser(new User("Юзер 2","й2"));
+        userDao.addUser(new User("Юзер 3","й3"));
+
+
+
+
+        List <User> users = userDao.getUsersByName("Юзер 1");
+        userDao.deleteMulUser(users);
+
+        List<User> list = userDao.listAll();
+        Log.e(TAG, "Все юзеры: "+list.toString() );
     }
 
 

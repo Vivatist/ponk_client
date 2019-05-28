@@ -7,10 +7,10 @@ import android.widget.Toast;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import ru.bchstudio.ponk.Notification.OfflineServiceNotification;
-import ru.bchstudio.ponk.Notification.ServiceNotification;
-import ru.bchstudio.ponk.Notification.StandartServiceNotification;
-import ru.bchstudio.ponk.WeatherPOJO;
+import ru.bchstudio.ponk.notification.OfflineServiceNotification;
+import ru.bchstudio.ponk.notification.ServiceNotification;
+import ru.bchstudio.ponk.notification.StandartServiceNotification;
+import ru.bchstudio.ponk.DAO.WeatherPOJO;
 import ru.bchstudio.ponk.web.events.ResponseCurrentWeatherEvent;
 import ru.bchstudio.ponk.web.events.ResponseTestEvent;
 import ru.bchstudio.ponk.web.WebAsyncTask;

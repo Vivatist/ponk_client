@@ -1,4 +1,4 @@
-package ru.bchstudio.ponk.Notification;
+package ru.bchstudio.ponk.notification;
 
 import android.app.Notification;
 import android.app.NotificationChannel;

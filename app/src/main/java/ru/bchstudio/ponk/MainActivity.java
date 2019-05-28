@@ -17,8 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.j256.ormlite.table.TableUtils;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -26,8 +24,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-import ru.bchstudio.ponk.DAO.User;
+import ru.bchstudio.ponk.DAO.WeatherDao;
+import ru.bchstudio.ponk.DAO.entities.User;
 import ru.bchstudio.ponk.DAO.UserDao;
+import ru.bchstudio.ponk.DAO.entities.Weather;
 import ru.bchstudio.ponk.service.BackgroundService;
 import ru.bchstudio.ponk.web.events.ResponseCurrentWeatherEvent;
 import ru.bchstudio.ponk.web.events.ResponseTestEvent;
@@ -118,8 +118,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onResponseEvent(ResponseCurrentWeatherEvent event) {
-       Toast.makeText(getApplicationContext(), event.message, Toast.LENGTH_SHORT).show();
+    public void onResponseEvent(ResponseTestEvent event) {
+
+
+        WeatherDao weatherDao = new WeatherDao(this);
+        Weather weather = new Weather(event.message);
+        weatherDao.addWeather(weather);
     }
 
 
@@ -148,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onMyButtonClick(View view) {
-        new WebAsyncTask(Constants.TEST_URL, Constants.HTTP_REQUEST_TIMEOUT, new ResponseTestEvent()).execute();
+        new WebAsyncTask(Constants.WEATHER_URL, Constants.HTTP_REQUEST_TIMEOUT, new ResponseTestEvent()).execute();
 
 
         UserDao userDao = new UserDao(this);

@@ -11,16 +11,15 @@ import com.j256.ormlite.stmt.Where;
 import java.sql.SQLException;
 import java.util.List;
 
+import ru.bchstudio.ponk.DAO.entities.User;
+
 
 public class UserDao {
     private static final String TAG = "UserDao";
-    private Context context;
     private Dao<User,Integer> userDao;
-    private DatabaseHelper helper;
 
     public UserDao(Context context){
-        this.context = context;
-        helper = DatabaseHelper.getInstance(context);
+        DatabaseHelper helper = DatabaseHelper.getInstance(context);
 
         try {
             userDao = helper.getDao(User.class);

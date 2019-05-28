@@ -10,7 +10,7 @@ import org.greenrobot.eventbus.Subscribe;
 import ru.bchstudio.ponk.notification.OfflineServiceNotification;
 import ru.bchstudio.ponk.notification.ServiceNotification;
 import ru.bchstudio.ponk.notification.StandartServiceNotification;
-import ru.bchstudio.ponk.DAO.WeatherPOJO;
+import ru.bchstudio.ponk.DAO.entities.Weather;
 import ru.bchstudio.ponk.web.events.ResponseCurrentWeatherEvent;
 import ru.bchstudio.ponk.web.events.ResponseTestEvent;
 import ru.bchstudio.ponk.web.WebAsyncTask;
@@ -18,7 +18,7 @@ import ru.bchstudio.ponk.web.WebAsyncTask;
 public class MainEventDispatcher {
 
     private static final String TAG = WebAsyncTask.class.getName();
-    private Context context = null;
+    private Context context;
 
 
 
@@ -43,7 +43,7 @@ public class MainEventDispatcher {
 
         if (result != null){
 
-            WeatherPOJO weather = new WeatherPOJO(result);
+            Weather weather = new Weather(result);
 
             StandartServiceNotification notification = new StandartServiceNotification(context);
             notification.setTemperature(weather.getTemp())

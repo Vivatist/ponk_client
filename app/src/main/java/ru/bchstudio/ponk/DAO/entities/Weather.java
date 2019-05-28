@@ -1,7 +1,10 @@
-package ru.bchstudio.ponk.DAO;
+package ru.bchstudio.ponk.DAO.entities;
 
 import android.annotation.SuppressLint;
 import android.util.Log;
+
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -16,22 +19,36 @@ import ru.bchstudio.ponk.web.WebAsyncTask;
 
 
 //POJO класс для хранения данных о погоде
-public class WeatherPOJO {
+@DatabaseTable
+public class Weather {
 
+    @DatabaseField(generatedId = true)
     private int id; //Номер пакета на сервере
+    @DatabaseField
     private String city; //Название города
+    @DatabaseField
     private String country; //Идентификатор страны (RU,EN...)
+    @DatabaseField
     private boolean online; //Метка источника пакета с сервера (онлайн, либо офлайн)
+    @DatabaseField
     private Date upd_time; //Время получения пакета с сервера бесплатного сервера
 
+    @DatabaseField
     private int temp; //Температура
+    @DatabaseField
     private int temp_min; //Температура минимальная
+    @DatabaseField
     private int temp_max; //Температура максимальная
+    @DatabaseField
     private int humidity; //Влажность
+    @DatabaseField
     private int pressure; //Давление
+    @DatabaseField
     private int wind_spd; //Скорость ветра
+    @DatabaseField
     private int wind_deg; //Направление ветра
 
+    @DatabaseField
     private String instruction; //JSON с дополнительным объектом
 
     private static final String TAG = WebAsyncTask.class.getName();
@@ -92,7 +109,7 @@ public class WeatherPOJO {
     @NotNull
     @Override
     public String toString() {
-        return "WeatherPOJO{" +
+        return "Weather{" +
                 "id=" + id +
                 ", city='" + city + '\'' +
                 ", country='" + country + '\'' +
@@ -145,9 +162,12 @@ public class WeatherPOJO {
     }
 
 
-    public WeatherPOJO(String JSON) {
+    public Weather(String JSON) {
 
         JsonToFields(JSON);
+    }
+
+    public Weather() {
     }
 
 }

@@ -12,30 +12,33 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import ru.bchstudio.ponk.DAO.entities.User;
+import ru.bchstudio.ponk.DAO.entities.Weather;
+
 /**
- * 数据库操作管理工具类
- * <p>
- * 我们需要自定义一个类继承自ORMlite给我们提供的OrmLiteSqliteOpenHelper，创建一个构造方法，重写两个方法onCreate()和onUpgrade()
- * 在onCreate()方法中使用TableUtils类中的createTable()方法初始化数据表
- * 在onUpgrade()方法中我们可以先删除所有表，然后调用onCreate()方法中的代码重新创建表
- * <p>
- * 我们需要对这个类进行单例，保证整个APP中只有一个SQLite Connection对象
- * <p>
- * 这个类通过一个Map集合来管理APP中所有的DAO，只有当第一次调用这个DAO类时才会创建这个对象（并存入Map集合中）
- * 其他时候都是直接根据实体类的路径从Map集合中取出DAO对象直接调用
+ * Класс инструмента управления операциями с базой данных
+   *
+   * Нам нужно настроить класс, который наследует от OrmLiteSqliteOpenHelper, предоставляемого ORMlite, создать конструктор, переопределить два метода onCreate () и onUpgrade ()
+   * Используйте метод createTable () в классе TableUtils для инициализации таблицы данных в методе onCreate ().
+   * В методе onUpgrade () мы можем сначала удалить все таблицы, а затем вызвать код в методе onCreate () для воссоздания таблицы.
+   *
+   * Нам нужно сделать синглтон для этого класса, чтобы гарантировать, что во всем приложении есть только один объект SQLite Connection.
+   *
+   * Этот класс управляет всеми DAO в приложении через коллекцию Map.Этот объект будет создан только при первом вызове класса DAO (и сохранен в коллекции Map).
+   * В других случаях объект DAO вызывается напрямую из коллекции Map напрямую в соответствии с путем к классу сущностей.
  */
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
-    // 数据库名称
-    public static final String DATABASE_NAME = "mydb.db";
+    // Имя базы данных
+    public static final String DATABASE_NAME = "ponk.db";
 
-    // 本类的单例实例
+    // Единственный экземпляр класса
     private static DatabaseHelper instance;
 
-    // 存储APP中所有的DAO对象的Map集合
+    // Хранит коллекцию карт всех объектов DAO в приложении
     private Map<String, Dao> maps = new HashMap<>();
 
-    // 获取本类单例对象的方法
+    // Возвращает инстанс синглтона
     public static synchronized DatabaseHelper getInstance(Context context) {
         if (instance == null) {
             synchronized (DatabaseHelper.class) {
@@ -47,20 +50,20 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return instance;
     }
 
-    // 私有的构造方法
+    // Приватный конструктор
     private DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
 
     /**
-     * 获得数据库的访问对象
+     * Возвращает объект доступа к БД
      * @param cls
      * @return
      * @throws SQLException
      */
     public synchronized Dao getDao(Class cls) throws SQLException {
         Dao dao = null;
-        String className = cls.getSimpleName();//通过反射获得类名
+        String className = cls.getSimpleName();
         if (maps.containsKey(className)) {
             dao = maps.get(className);
         }
@@ -72,7 +75,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     }
 
     /**
-     * 关闭所有操作
+     * Завершаем все операции
      */
     public void close(){
         super.close();
@@ -84,9 +87,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
-        // 完成对数据库的创建 以及表的建立
+        // Создаем таблицы
         try {
-            TableUtils.createTableIfNotExists(connectionSource,User.class);
+            TableUtils.createTableIfNotExists(connectionSource, User.class);
+            TableUtils.createTableIfNotExists(connectionSource, Weather.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -96,6 +100,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
         try {
             TableUtils.dropTable(connectionSource,User.class,true);
+            TableUtils.dropTable(connectionSource,Weather.class,true);
+
         }catch (Exception e){
 
         }

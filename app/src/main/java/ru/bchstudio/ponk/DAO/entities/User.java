@@ -1,4 +1,4 @@
-package ru.bchstudio.ponk.DAO;
+package ru.bchstudio.ponk.DAO.entities;
 
 
 import com.j256.ormlite.field.DatabaseField;

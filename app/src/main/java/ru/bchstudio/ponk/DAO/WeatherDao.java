@@ -30,14 +30,25 @@ public class WeatherDao {
     }
 
 
-
+    public void updateWeather(Weather weather) {
+        try {
+            dao.update(weather);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     //Добавляет элемент в базу
     public void addWeather(Weather weather){
         try{
 
-           dao.create(weather);
-            Log.d(TAG, "В базу добавлен:  " + weather.toString());
+            List<Weather> weatherList = getWeatherById(weather.getId());
+            if (weatherList.size() != 0){
+                Log.e(TAG,"Удаляем запись с ID "+ weather.getId() +" - : " + weather.toString());
+                deleteMultiUser(weatherList);
+            }
+            Log.e(TAG,"Добавляем запись с ID "+ weather.getId() +" - : " + weather.toString());
+            dao.create(weather);
         }catch (Exception e){
             e.printStackTrace();
         }

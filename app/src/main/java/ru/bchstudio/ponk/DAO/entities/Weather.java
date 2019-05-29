@@ -22,7 +22,7 @@ import ru.bchstudio.ponk.web.WebAsyncTask;
 @DatabaseTable
 public class Weather {
 
-    @DatabaseField
+    @DatabaseField(id = true)
     private int id; //Номер пакета на сервере
     @DatabaseField
     private String city; //Название города
@@ -163,7 +163,7 @@ public class Weather {
 
 
     public Weather(String JSON) {
-
+        if (JSON == null)  throw new NullPointerException("Конструктор Weather не принимает null в качестве параметра JSON");
         JsonToFields(JSON);
     }
 

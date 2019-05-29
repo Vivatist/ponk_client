@@ -90,71 +90,19 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-    private Notification prepareNotification(int icon, String contentTitle, String contentText) {
-        final String TEST_CHANNEL_ID = "Test Channel ID"; //TODO придумать более удачное название
-        final String TEST_CHANNEL_NAME = "Test Channel name"; //TODO придумать более удачное название
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, TEST_CHANNEL_ID);
-        Intent notificationIntent = new Intent(this, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
-
-        builder.setSmallIcon(icon)
-                .setContentTitle(contentTitle)
-                .setContentText(contentTitle)
-                .setContentIntent(pendingIntent)
-                .setSound(null);
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            NotificationChannel notificationChannel = new NotificationChannel(TEST_CHANNEL_ID, TEST_CHANNEL_NAME, NotificationManager.IMPORTANCE_LOW);
-            notificationChannel.setSound(null, null);
-            notificationChannel.setShowBadge(false);
-            manager.createNotificationChannel(notificationChannel);
-        }
-
-        return builder.build();
-
-    }
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onResponseEvent(ResponseTestEvent event) {
 
+        String result = event.message;
+        if (result != null){
+            WeatherDao weatherDao = new WeatherDao(this);
+            Weather weather = new Weather(event.message);
 
-        WeatherDao weatherDao = new WeatherDao(this);
-        Weather weather = new Weather(event.message);
-        weatherDao.addWeather(weather);
-        List<Weather> weatherList = weatherDao.getXLastRecord(2);
-        for (Weather w: weatherList){
-            Log.e(TAG,"Элемент базы: " + w.toString());
+            weatherDao.addWeather(weather);
         }
     }
 
 
-
-    @Nullable
-    private Integer getIcon(int value){
-
-        String nameResource;
-
-        try {
-            if (value >= 0){
-                nameResource = "ic_degrees_"+ value;
-                return R.drawable.class.getField(nameResource).getInt(getResources());
-            } else {
-                nameResource = "ic_degrees_minus"+ Math.abs(value);
-                return R.drawable.class.getField(nameResource).getInt(getResources());
-            }
-
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (NoSuchFieldException e) {
-            return null;
-        }
-
-        return null;
-    }
 
     public void onMyButtonClick(View view) {
         new WebAsyncTask(Constants.WEATHER_URL, Constants.HTTP_REQUEST_TIMEOUT, new ResponseTestEvent()).execute();
@@ -190,17 +138,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void onMyButton3Click(View view) {
 
-        WeatherDao weatherDao = new WeatherDao(this);
-
-
-        List<Weather> list = getWeatherById(weather.getId());
-        deleteMultiUser(list);
-
-
-        List<Weather> weatherList = weatherDao.getWeatherById(4200);
-        for (Weather w: weatherList){
-            Log.e(TAG,"&&& - : " + w.toString());
-        }
+//        WeatherDao weatherDao = new WeatherDao(this);
+//
+//
+//        List<Weather> list = getWeatherById(weather.getId());
+//        deleteMultiUser(list);
+//
+//
+//        List<Weather> weatherList = weatherDao.getWeatherById(4200);
+//        for (Weather w: weatherList){
+//            Log.e(TAG,"&&& - : " + w.toString());
+//        }
     }
 
 

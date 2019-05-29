@@ -43,9 +43,7 @@ public class WebAsyncTask extends AsyncTask<Void, String, String> { //change Obj
 
     //Выполняется после завершения потока
     @Override
-    protected void onPostExecute(final String result) {
-      //  EventBus.getDefault().post(new ResponseCurrentWeatherEvent(result));
-
+    protected void onPostExecute(String result) {
         listener.setResult(result);
         EventBus.getDefault().post(listener);
     }

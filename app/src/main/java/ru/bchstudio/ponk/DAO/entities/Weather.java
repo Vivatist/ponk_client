@@ -22,7 +22,7 @@ import ru.bchstudio.ponk.web.WebAsyncTask;
 @DatabaseTable
 public class Weather {
 
-    @DatabaseField(generatedId = true)
+    @DatabaseField
     private int id; //Номер пакета на сервере
     @DatabaseField
     private String city; //Название города

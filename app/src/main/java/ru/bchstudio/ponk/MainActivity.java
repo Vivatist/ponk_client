@@ -22,6 +22,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.jetbrains.annotations.Nullable;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import ru.bchstudio.ponk.DAO.WeatherDao;
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tvCounter;
     int queryCounter = 0;
     EditText editText3;
-
+    private View view;
 
 
     @Override
@@ -124,6 +125,10 @@ public class MainActivity extends AppCompatActivity {
         WeatherDao weatherDao = new WeatherDao(this);
         Weather weather = new Weather(event.message);
         weatherDao.addWeather(weather);
+        List<Weather> weatherList = weatherDao.getXLastRecord(2);
+        for (Weather w: weatherList){
+            Log.e(TAG,"Элемент базы: " + w.toString());
+        }
     }
 
 
@@ -172,6 +177,30 @@ public class MainActivity extends AppCompatActivity {
 
         List<User> list = userDao.listAll();
         Log.e(TAG, "Все юзеры: "+list.toString() );
+    }
+
+    public void onMyButton2Click(View view) {
+
+        WeatherDao weatherDao = new WeatherDao(this);
+        List<Weather> weatherList = weatherDao.listAll();
+        for (Weather w: weatherList){
+            Log.e(TAG,"!!! - : " + w.toString());
+        }
+    }
+
+    public void onMyButton3Click(View view) {
+
+        WeatherDao weatherDao = new WeatherDao(this);
+
+
+        List<Weather> list = getWeatherById(weather.getId());
+        deleteMultiUser(list);
+
+
+        List<Weather> weatherList = weatherDao.getWeatherById(4200);
+        for (Weather w: weatherList){
+            Log.e(TAG,"&&& - : " + w.toString());
+        }
     }
 
 

@@ -11,34 +11,90 @@ import com.j256.ormlite.stmt.Where;
 import java.sql.SQLException;
 import java.util.List;
 
-import ru.bchstudio.ponk.DAO.entities.User;
 import ru.bchstudio.ponk.DAO.entities.Weather;
 
 
 public class WeatherDao {
     private static final String TAG = "UserDao";
-    private Dao<Weather,Integer> weatherDao;
+    private Dao<Weather,Integer> dao;
 
 
     public WeatherDao(Context context){
         DatabaseHelper helper = DatabaseHelper.getInstance(context);
 
         try {
-            weatherDao = helper.getDao(Weather.class);
+            dao = helper.getDao(Weather.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+
+
+
+    //Добавляет элемент в базу
     public void addWeather(Weather weather){
         try{
-            weatherDao.create(weather);
+
+           dao.create(weather);
             Log.d(TAG, "В базу добавлен:  " + weather.toString());
         }catch (Exception e){
             e.printStackTrace();
-            Log.e(TAG, "addWeather: "+e.getMessage());
         }
     }
+
+
+    //возвращает Х последних элементов из базы
+    public List<Weather> getXLastRecord(long x)  {
+
+        QueryBuilder<Weather, Integer> builder = dao.queryBuilder();
+        builder.limit(x);
+        builder.orderBy("id", false);  // true for ascending, false for descending
+        List<Weather> query = null;
+        try {
+            query = dao.query(builder.prepare());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return query;
+    }
+
+
+    //удаляет список элементов из базы
+    public void deleteMultiUser(List<Weather> weathers){
+        try{
+            dao.delete(weathers);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+    //возвращает все записи
+    public List<Weather> listAll(){
+        try {
+            return dao.queryForAll();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    //возвращает все элементы с заданным ID
+    public List<Weather> getWeatherById(Integer id){
+        List<Weather> list = null;
+        QueryBuilder<Weather, Integer> queryBuilder = dao.queryBuilder();
+        Where<Weather,Integer> where = queryBuilder.where();
+        try {
+            where.eq("id",id);
+            where.prepare();
+            list = queryBuilder.query();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
 
 
 }

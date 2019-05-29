@@ -16,13 +16,13 @@ import ru.bchstudio.ponk.DAO.entities.User;
 
 public class UserDao {
     private static final String TAG = "UserDao";
-    private Dao<User,Integer> userDao;
+    private Dao<User,Integer> dao;
 
     public UserDao(Context context){
         DatabaseHelper helper = DatabaseHelper.getInstance(context);
 
         try {
-            userDao = helper.getDao(User.class);
+            dao = helper.getDao(User.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -30,7 +30,7 @@ public class UserDao {
 
     public void addUser(User user){
         try{
-            userDao.create(user);
+            dao.create(user);
         }catch (Exception e){
             e.printStackTrace();
             Log.e(TAG, "addUser: "+e.getMessage());
@@ -39,7 +39,7 @@ public class UserDao {
 
     public void updateUser(User user) {
         try {
-            userDao.update(user);
+            dao.update(user);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -53,7 +53,7 @@ public class UserDao {
      */
     public void updateUserByID(User user, Integer id) {
         try {
-            userDao.updateId(user, id);
+            dao.updateId(user, id);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -67,7 +67,7 @@ public class UserDao {
      */
     public void updateUserByBuilder(User user) {
         try {
-            UpdateBuilder builder = userDao.updateBuilder();
+            UpdateBuilder builder = dao.updateBuilder();
             builder.updateColumnValue("name", user.getName())
                     .where().eq("id",1);
             builder.update();
@@ -82,7 +82,7 @@ public class UserDao {
      */
     public void deleteUser(User user) {
         try {
-            userDao.delete(user);
+            dao.delete(user);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -94,7 +94,7 @@ public class UserDao {
      */
     public void deleteMulUser(List<User> users){
         try{
-            userDao.delete(users);
+            dao.delete(users);
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -106,7 +106,7 @@ public class UserDao {
      */
     public void deleteUserByIDs(List<Integer> ids){
         try{
-            userDao.deleteIds(ids);
+            dao.deleteIds(ids);
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -119,7 +119,7 @@ public class UserDao {
      */
     public List<User> listAll(){
         try {
-            return userDao.queryForAll();
+            return dao.queryForAll();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -134,7 +134,7 @@ public class UserDao {
      */
     public List<User> getUsersByName(String name){
         List<User> list = null;
-        QueryBuilder<User, Integer> queryBuilder = userDao.queryBuilder();
+        QueryBuilder<User, Integer> queryBuilder = dao.queryBuilder();
         Where<User,Integer> where = queryBuilder.where();
         try {
             where.eq("name",name);
@@ -154,7 +154,7 @@ public class UserDao {
     public List<User> queryBuilder_2() {
         List<User> list = null;
 
-        QueryBuilder<User, Integer> queryBuilder = userDao.queryBuilder();
+        QueryBuilder<User, Integer> queryBuilder = dao.queryBuilder();
         Where<User, Integer> where = queryBuilder.where();
         try {
             list = where.or(where.and(where.eq("name", "jack"), where.eq("desc", "湖北")),

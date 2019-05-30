@@ -2,6 +2,7 @@ package ru.bchstudio.ponk.DAO;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
@@ -29,8 +30,13 @@ import ru.bchstudio.ponk.DAO.entities.Weather;
  */
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
+    private static final String TAG = "DatabaseHelper";
+
     // Имя базы данных
-    public static final String DATABASE_NAME = "ponk.db";
+    private static final String DATABASE_NAME = "ponk.db";
+    // Версия базы данных, изменить при изменении схемы
+    private static final int DATABASE_VERSION = 6;
+
 
     // Единственный экземпляр класса
     private static DatabaseHelper instance;
@@ -52,7 +58,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     // Приватный конструктор
     private DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, 1);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        Log.e(TAG, "Подключена база данных "+ DATABASE_NAME);
+
     }
 
     /**
@@ -88,6 +96,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
         // Создаем таблицы
+        Log.e(TAG, "Создаем таблицы");
         try {
             TableUtils.createTableIfNotExists(connectionSource, User.class);
             TableUtils.createTableIfNotExists(connectionSource, Weather.class);
@@ -98,12 +107,14 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
+        Log.e(TAG, "Версия базы данных изменилась. Удаляем таблицы.");
         try {
             TableUtils.dropTable(connectionSource,User.class,true);
             TableUtils.dropTable(connectionSource,Weather.class,true);
 
         }catch (Exception e){
-
+            e.printStackTrace();
         }
+        onCreate(database, connectionSource);
     }
 }

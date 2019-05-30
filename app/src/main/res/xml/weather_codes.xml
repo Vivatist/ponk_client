@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <id200>
+        <id>200</id>
+        <main>Thunderstorm</main>
+        <description>thunderstorm with light rain</description>
+        <icon>11d</icon>
+    </id200>
+    <id201>
+        <id>201</id>
+        <main>Thunderstorm</main>
+        <description>thunderstorm with rain</description>
+        <icon>11d</icon>
+    </id201>
+    <id202>
+        <id>202</id>
+        <main>Thunderstorm</main>
+        <description>thunderstorm with heavy rain</description>
+        <icon>11d</icon>
+    </id202>
+    <id210>
+        <id>210</id>
+        <main>Thunderstorm</main>
+        <description>light thunderstorm</description>
+        <icon>11d</icon>
+    </id210>
+    <id211>
+        <id>211</id>
+        <main>Thunderstorm</main>
+        <description>thunderstorm</description>
+        <icon>11d</icon>
+    </id211>
+    <id212>
+        <id>212</id>
+        <main>Thunderstorm</main>
+        <description>heavy thunderstorm</description>
+        <icon>11d</icon>
+    </id212>
+    <id221>
+        <id>221</id>
+        <main>Thunderstorm</main>
+        <description>ragged thunderstorm</description>
+        <icon>11d</icon>
+    </id221>
+    <id230>
+        <id>230</id>
+        <main>Thunderstorm</main>
+        <description>thunderstorm with light drizzle</description>
+        <icon>11d</icon>
+    </id230>
+    <id231>
+        <id>231</id>
+        <main>Thunderstorm</main>
+        <description>thunderstorm with drizzle</description>
+        <icon>11d</icon>
+    </id231>
+    <id232>
+        <id>232</id>
+        <main>Thunderstorm</main>
+        <description>thunderstorm with heavy drizzle</description>
+        <icon>11d</icon>
+    </id232>
+</resources>

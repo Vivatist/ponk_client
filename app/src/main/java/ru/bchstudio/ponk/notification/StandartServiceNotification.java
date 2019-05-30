@@ -24,8 +24,9 @@ public class StandartServiceNotification extends ServiceNotification {
     private String contentTitle = null;
     private String contentText = null;
     private Date upd_time;
+    private int weather_id = 0;
 
-
+    //КОНСТРУКТОР
     public StandartServiceNotification(Context context) {
         super(context);
         this.upd_time = Calendar.getInstance().getTime();
@@ -51,6 +52,11 @@ public class StandartServiceNotification extends ServiceNotification {
 
     public StandartServiceNotification setUpd_time(Date upd_time) {
         this.upd_time = upd_time;
+        return this;
+    }
+
+    public StandartServiceNotification setWeather_id(int weather_id) {
+        this.weather_id = weather_id;
         return this;
     }
 

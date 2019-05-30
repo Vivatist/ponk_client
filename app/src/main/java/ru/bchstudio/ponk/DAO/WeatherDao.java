@@ -38,7 +38,7 @@ public class WeatherDao {
         }
     }
 
-    //Добавляет элемент в базу
+    //Добавляет элемент в базу. Если элемент с таким ID уже есть, то старый элемент удаляем, новый записываем
     public void addWeather(Weather weather){
         try{
 

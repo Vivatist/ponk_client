@@ -29,6 +29,7 @@ import ru.bchstudio.ponk.DAO.WeatherDao;
 import ru.bchstudio.ponk.DAO.entities.User;
 import ru.bchstudio.ponk.DAO.UserDao;
 import ru.bchstudio.ponk.DAO.entities.Weather;
+import ru.bchstudio.ponk.DAO.entities.WeatherCode;
 import ru.bchstudio.ponk.service.BackgroundService;
 import ru.bchstudio.ponk.web.events.ResponseCurrentWeatherEvent;
 import ru.bchstudio.ponk.web.events.ResponseTestEvent;
@@ -99,6 +100,13 @@ public class MainActivity extends AppCompatActivity {
             Weather weather = new Weather(event.message);
 
             weatherDao.addWeather(weather);
+
+
+            WeatherCode weatherCode = new WeatherCode(getApplicationContext(),weather.getWeather_id());
+            WeatherCode weatherCode2 = new WeatherCode(getApplicationContext(),200);
+
+            Log.e(TAG, weatherCode.toString());
+            Log.e(TAG, weatherCode2.toString());
         }
     }
 

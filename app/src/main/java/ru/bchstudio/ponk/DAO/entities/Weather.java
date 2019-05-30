@@ -33,6 +33,10 @@ public class Weather {
     @DatabaseField
     private Date upd_time; //Время получения пакета с сервера бесплатного сервера
 
+
+
+    @DatabaseField
+    private int weather_id;
     @DatabaseField
     private int temp; //Температура
     @DatabaseField
@@ -71,6 +75,10 @@ public class Weather {
 
     public Date getUpd_time() {
         return upd_time;
+    }
+
+    public int getWeather_id() {
+        return weather_id;
     }
 
     public int getTemp() {
@@ -115,6 +123,7 @@ public class Weather {
                 ", country='" + country + '\'' +
                 ", online=" + online +
                 ", upd_time=" + upd_time +
+                ", weather_id=" + weather_id +
                 ", temp=" + temp +
                 ", temp_min=" + temp_min +
                 ", temp_max=" + temp_max +
@@ -140,6 +149,7 @@ public class Weather {
             SimpleDateFormat ft = new SimpleDateFormat ("dd.MM.yyyy HH:mm:ss" );
             this.upd_time = ft.parse(upd_time);
 
+            this.weather_id = myResponse.getInt("weather_id");
             this.temp = (int) Math.round(myResponse.getDouble("temp"));
             this.temp_min = (int) Math.round(myResponse.getDouble("temp_min"));
             this.temp_max = (int) Math.round(myResponse.getDouble("temp_max"));

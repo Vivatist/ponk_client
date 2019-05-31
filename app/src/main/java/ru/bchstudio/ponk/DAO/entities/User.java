@@ -4,9 +4,7 @@ package ru.bchstudio.ponk.DAO.entities;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-/**
- * @DatabaseTable(tableName = "user_info") 配置数据库的表名称 为 user_info
- */
+import org.jetbrains.annotations.NotNull;
 
 @DatabaseTable(tableName = "user_info")
 public class User {
@@ -61,6 +59,7 @@ public class User {
         this.desc = desc;
     }
 
+    @NotNull
     @Override
     public String toString() {
         return "User{" +

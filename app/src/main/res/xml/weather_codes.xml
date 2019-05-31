@@ -1,63 +1,396 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
-    <id200>
+    <item>
         <id>200</id>
         <main>Thunderstorm</main>
         <description>thunderstorm with light rain</description>
-        <icon>11d</icon>
-    </id200>
-    <id201>
+        <icon_d>11d</icon_d>
+        <icon_n>11d</icon_n>
+    </item>
+    <item>
         <id>201</id>
         <main>Thunderstorm</main>
         <description>thunderstorm with rain</description>
-        <icon>11d</icon>
-    </id201>
-    <id202>
+        <icon_d>11d</icon_d>
+        <icon_n>11d</icon_n>
+    </item>
+    <item>
         <id>202</id>
         <main>Thunderstorm</main>
         <description>thunderstorm with heavy rain</description>
-        <icon>11d</icon>
-    </id202>
-    <id210>
+        <icon_d>11d</icon_d>
+        <icon_n>11d</icon_n>
+    </item>
+    <item>
         <id>210</id>
         <main>Thunderstorm</main>
         <description>light thunderstorm</description>
-        <icon>11d</icon>
-    </id210>
-    <id211>
+        <icon_d>11d</icon_d>
+        <icon_n>11d</icon_n>
+    </item>
+    <item>
         <id>211</id>
         <main>Thunderstorm</main>
         <description>thunderstorm</description>
-        <icon>11d</icon>
-    </id211>
-    <id212>
+        <icon_d>11d</icon_d>
+        <icon_n>11d</icon_n>
+    </item>
+    <item>
         <id>212</id>
         <main>Thunderstorm</main>
         <description>heavy thunderstorm</description>
-        <icon>11d</icon>
-    </id212>
-    <id221>
+        <icon_d>11d</icon_d>
+        <icon_n>11d</icon_n>
+    </item>
+    <item>
         <id>221</id>
         <main>Thunderstorm</main>
         <description>ragged thunderstorm</description>
-        <icon>11d</icon>
-    </id221>
-    <id230>
+        <icon_d>11d</icon_d>
+        <icon_n>11d</icon_n>
+    </item>
+    <item>
         <id>230</id>
         <main>Thunderstorm</main>
         <description>thunderstorm with light drizzle</description>
-        <icon>11d</icon>
-    </id230>
-    <id231>
+        <icon_d>11d</icon_d>
+        <icon_n>11d</icon_n>
+    </item>
+    <item>
         <id>231</id>
         <main>Thunderstorm</main>
         <description>thunderstorm with drizzle</description>
-        <icon>11d</icon>
-    </id231>
-    <id232>
+        <icon_d>11d</icon_d>
+        <icon_n>11d</icon_n>
+    </item>
+    <item>
         <id>232</id>
         <main>Thunderstorm</main>
         <description>thunderstorm with heavy drizzle</description>
-        <icon>11d</icon>
-    </id232>
+        <icon_d>11d</icon_d>
+        <icon_n>11d</icon_n>
+    </item>
+
+    <item>
+        <id>300</id>
+        <main>Drizzle</main>
+        <description>light intensity drizzle</description>
+        <icon_d>09d</icon_d>
+        <icon_n>09d</icon_n>
+    </item>
+    <item>
+        <id>301</id>
+        <main>Drizzle</main>
+        <description>drizzle</description>
+        <icon_d>09d</icon_d>
+        <icon_n>09d</icon_n>
+    </item>
+    <item>
+        <id>302</id>
+        <main>Drizzle</main>
+        <description>heavy intensity drizzle</description>
+        <icon_d>09d</icon_d>
+        <icon_n>09d</icon_n>
+    </item>
+    <item>
+        <id>310</id>
+        <main>Drizzle</main>
+        <description>light intensity drizzle rain</description>
+        <icon_d>09d</icon_d>
+        <icon_n>09d</icon_n>
+    </item>
+    <item>
+        <id>311</id>
+        <main>Drizzle</main>
+        <description>drizzle rain</description>
+        <icon_d>09d</icon_d>
+        <icon_n>09d</icon_n>
+    </item>
+    <item>
+        <id>312</id>
+        <main>Drizzle</main>
+        <description>heavy intensity drizzle rain</description>
+        <icon_d>09d</icon_d>
+        <icon_n>09d</icon_n>
+    </item>
+    <item>
+        <id>313</id>
+        <main>Drizzle</main>
+        <description>shower rain and drizzle</description>
+        <icon_d>09d</icon_d>
+        <icon_n>09d</icon_n>
+    </item>
+    <item>
+        <id>314</id>
+        <main>Drizzle</main>
+        <description>heavy shower rain and drizzle</description>
+        <icon_d>09d</icon_d>
+        <icon_n>09d</icon_n>
+    </item>
+    <item>
+        <id>321</id>
+        <main>Drizzle</main>
+        <description>shower drizzle</description>
+        <icon_d>09d</icon_d>
+        <icon_n>09d</icon_n>
+    </item>
+
+    <item>
+        <id>500</id>
+        <main>Rain</main>
+        <description>light rain</description>
+        <icon_d>10d</icon_d>
+        <icon_n>10d</icon_n>
+    </item>
+    <item>
+        <id>501</id>
+        <main>Rain</main>
+        <description>moderate rain</description>
+        <icon_d>10d</icon_d>
+        <icon_n>10d</icon_n>
+    </item>
+    <item>
+        <id>502</id>
+        <main>Rain</main>
+        <description>heavy intensity rain</description>
+        <icon_d>10d</icon_d>
+        <icon_n>10d</icon_n>
+    </item>
+    <item>
+        <id>503</id>
+        <main>Rain</main>
+        <description>very heavy rain</description>
+        <icon_d>10d</icon_d>
+        <icon_n>10d</icon_n>
+    </item>
+    <item>
+        <id>504</id>
+        <main>Rain</main>
+        <description>extreme rain</description>
+        <icon_d>10d</icon_d>
+        <icon_n>10d</icon_n>
+    </item>
+    <item>
+        <id>511</id>
+        <main>Rain</main>
+        <description>freezing rain</description>
+        <icon_d>13d</icon_d>
+        <icon_n>13d</icon_n>
+    </item>
+    <item>
+        <id>520</id>
+        <main>Rain</main>
+        <description>light intensity shower rain</description>
+        <icon_d>09d</icon_d>
+        <icon_n>09d</icon_n>
+    </item>
+    <item>
+        <id>521</id>
+        <main>Rain</main>
+        <description>shower rain</description>
+        <icon_d>09d</icon_d>
+        <icon_n>09d</icon_n>
+    </item>
+    <item>
+        <id>522</id>
+        <main>Rain</main>
+        <description>heavy intensity shower rain</description>
+        <icon_d>09d</icon_d>
+        <icon_n>09d</icon_n>
+    </item>
+    <item>
+        <id>531</id>
+        <main>Rain</main>
+        <description>ragged shower rain</description>
+        <icon_d>09d</icon_d>
+        <icon_n>09d</icon_n>
+    </item>
+
+    <item>
+        <id>600</id>
+        <main>Snow</main>
+        <description>light snow</description>
+        <icon_d>13d</icon_d>
+        <icon_n>13d</icon_n>
+    </item>
+    <item>
+        <id>601</id>
+        <main>Snow</main>
+        <description>Snow</description>
+        <icon_d>13d</icon_d>
+        <icon_n>13d</icon_n>
+    </item>
+    <item>
+        <id>602</id>
+        <main>Snow</main>
+        <description>Heavy snow</description>
+        <icon_d>13d</icon_d>
+        <icon_n>13d</icon_n>
+    </item>
+    <item>
+        <id>611</id>
+        <main>Snow</main>
+        <description>Sleet</description>
+        <icon_d>13d</icon_d>
+        <icon_n>13d</icon_n>
+    </item>
+    <item>
+        <id>612</id>
+        <main>Snow</main>
+        <description>Light shower sleet</description>
+        <icon_d>13d</icon_d>
+        <icon_n>13d</icon_n>
+    </item>
+    <item>
+        <id>613</id>
+        <main>Snow</main>
+        <description>Shower sleet</description>
+        <icon_d>13d</icon_d>
+        <icon_n>13d</icon_n>
+    </item>
+    <item>
+        <id>615</id>
+        <main>Snow</main>
+        <description>Light rain and snow</description>
+        <icon_d>13d</icon_d>
+        <icon_n>13d</icon_n>
+    </item>
+    <item>
+        <id>616</id>
+        <main>Snow</main>
+        <description>Rain and snow</description>
+        <icon_d>13d</icon_d>
+        <icon_n>13d</icon_n>
+    </item>
+    <item>
+        <id>620</id>
+        <main>Snow</main>
+        <description>Light shower snow</description>
+        <icon_d>13d</icon_d>
+        <icon_n>13d</icon_n>
+    </item>
+    <item>
+        <id>621</id>
+        <main>Snow</main>
+        <description>Shower snow</description>
+        <icon_d>13d</icon_d>
+        <icon_n>13d</icon_n>
+    </item>
+    <item>
+        <id>622</id>
+        <main>Snow</main>
+        <description>Heavy shower snow</description>
+        <icon_d>13d</icon_d>
+        <icon_n>13d</icon_n>
+    </item>
+
+
+    <item>
+        <id>701</id>
+        <main>Mist</main>
+        <description>mist</description>
+        <icon_d>50d</icon_d>
+        <icon_n>50d</icon_n>
+    </item>
+    <item>
+        <id>711</id>
+        <main>Smoke</main>
+        <description>Smoke</description>
+        <icon_d>50d</icon_d>
+        <icon_n>50d</icon_n>
+    </item>
+    <item>
+        <id>721</id>
+        <main>Haze</main>
+        <description>Haze</description>
+        <icon_d>50d</icon_d>
+        <icon_n>50d</icon_n>
+    </item>
+    <item>
+        <id>731</id>
+        <main>Dust</main>
+        <description>sand/ dust whirls</description>
+        <icon_d>50d</icon_d>
+        <icon_n>50d</icon_n>
+    </item>
+    <item>
+        <id>741</id>
+        <main>Fog</main>
+        <description>fog</description>
+        <icon_d>50d</icon_d>
+        <icon_n>50d</icon_n>
+    </item>
+    <item>
+        <id>751</id>
+        <main>Sand</main>
+        <description>sand</description>
+        <icon_d>50d</icon_d>
+        <icon_n>50d</icon_n>
+    </item>
+    <item>
+        <id>761</id>
+        <main>Dust</main>
+        <description>dust</description>
+        <icon_d>50d</icon_d>
+        <icon_n>50d</icon_n>
+    </item>
+    <item>
+        <id>762</id>
+        <main>Ash</main>
+        <description>volcanic ash</description>
+        <icon_d>50d</icon_d>
+        <icon_n>50d</icon_n>
+    </item>
+    <item>
+        <id>771</id>
+        <main>Squall</main>
+        <description>squalls</description>
+        <icon_d>50d</icon_d>
+        <icon_n>50d</icon_n>
+    </item>
+    <item>
+        <id>781</id>
+        <main>Tornado</main>
+        <description>tornado</description>
+        <icon_d>50d</icon_d>
+        <icon_n>50d</icon_n>
+    </item>
+
+    <item>
+        <id>800</id>
+        <main>Clear</main>
+        <description>clear sky</description>
+        <icon_d>01d</icon_d>
+        <icon_n>01n</icon_n>
+    </item>
+
+    <item>
+        <id>801</id>
+        <main>Clouds</main>
+        <description>few clouds: 11-25%</description>
+        <icon_d>02d</icon_d>
+        <icon_n>02n</icon_n>
+    </item>
+    <item>
+        <id>802</id>
+        <main>Clouds</main>
+        <description>scattered clouds: 25-50%</description>
+        <icon_d>03d</icon_d>
+        <icon_n>03n</icon_n>
+    </item>
+    <item>
+        <id>803</id>
+        <main>Clouds</main>
+        <description>broken clouds: 51-84%</description>
+        <icon_d>04d</icon_d>
+        <icon_n>04n</icon_n>
+    </item>
+    <item>
+        <id>804</id>
+        <main>Clouds</main>
+        <description>overcast clouds: 85-100%</description>
+        <icon_d>04d</icon_d>
+        <icon_n>04n</icon_n>
+    </item>
+
 </resources>

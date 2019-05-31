@@ -1,37 +1,31 @@
 package ru.bchstudio.ponk;
 
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.jetbrains.annotations.Nullable;
+import org.xmlpull.v1.XmlPullParserException;
 
-import java.sql.SQLException;
+import java.io.IOException;
 import java.util.List;
 
 import ru.bchstudio.ponk.DAO.WeatherDao;
+import ru.bchstudio.ponk.DAO.WeatherList;
 import ru.bchstudio.ponk.DAO.entities.User;
 import ru.bchstudio.ponk.DAO.UserDao;
+import ru.bchstudio.ponk.DAO.entities.WeatherElement;
 import ru.bchstudio.ponk.DAO.entities.Weather;
-import ru.bchstudio.ponk.DAO.entities.WeatherCode;
 import ru.bchstudio.ponk.service.BackgroundService;
-import ru.bchstudio.ponk.web.events.ResponseCurrentWeatherEvent;
 import ru.bchstudio.ponk.web.events.ResponseTestEvent;
 import ru.bchstudio.ponk.web.WebAsyncTask;
 
@@ -92,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onResponseEvent(ResponseTestEvent event) {
+    public void onResponseEvent(ResponseTestEvent event) throws IOException, XmlPullParserException {
 
         String result = event.message;
         if (result != null){
@@ -102,11 +96,6 @@ public class MainActivity extends AppCompatActivity {
             weatherDao.addWeather(weather);
 
 
-            WeatherCode weatherCode = new WeatherCode(getApplicationContext(),weather.getWeather_id());
-            WeatherCode weatherCode2 = new WeatherCode(getApplicationContext(),200);
-
-            Log.e(TAG, weatherCode.toString());
-            Log.e(TAG, weatherCode2.toString());
         }
     }
 
@@ -145,6 +134,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onMyButton3Click(View view) {
+        Log.e("!!!", "!!!");
+        WeatherList weatherList = new WeatherList(getApplicationContext(), R.xml.weather_codes);
+
+        Log.e(TAG, weatherList.getElements().toString());
+
+
 
 //        WeatherDao weatherDao = new WeatherDao(this);
 //

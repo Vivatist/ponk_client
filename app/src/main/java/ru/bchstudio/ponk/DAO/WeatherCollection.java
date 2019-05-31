@@ -8,10 +8,14 @@ import org.xmlpull.v1.XmlPullParser;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import ru.bchstudio.ponk.DAO.entities.WeatherElement;
 
 
-public class WeatherList {
+public class WeatherCollection {
 
     private List<WeatherElement> elements;
 
@@ -81,7 +85,7 @@ public class WeatherList {
         return wListElements;
     }
 
-    public WeatherList(Context context, int XMLfile) {
+    public WeatherCollection(Context context, int XMLfile) {
 
 
         this.elements = parse(context, XMLfile);
@@ -97,7 +101,13 @@ public class WeatherList {
 
     public WeatherElement getElementById(int id){
 
-        return
+        List<WeatherElement> result = elements.stream()
+                .filter(a -> Objects.equals(a.getId(), id))
+                .collect(Collectors.toList());
+
+        Optional<WeatherElement> firstElement = result.stream().findFirst();
+        //TODO реализовать возврат null при неверном id
+        return firstElement.get();
     }
 
 

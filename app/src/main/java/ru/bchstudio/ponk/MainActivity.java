@@ -19,11 +19,10 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.util.List;
 
+import ru.bchstudio.ponk.DAO.WeatherCollection;
 import ru.bchstudio.ponk.DAO.WeatherDao;
-import ru.bchstudio.ponk.DAO.WeatherList;
 import ru.bchstudio.ponk.DAO.entities.User;
 import ru.bchstudio.ponk.DAO.UserDao;
-import ru.bchstudio.ponk.DAO.entities.WeatherElement;
 import ru.bchstudio.ponk.DAO.entities.Weather;
 import ru.bchstudio.ponk.service.BackgroundService;
 import ru.bchstudio.ponk.web.events.ResponseTestEvent;
@@ -135,9 +134,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void onMyButton3Click(View view) {
         Log.e("!!!", "!!!");
-        WeatherList weatherList = new WeatherList(getApplicationContext(), R.xml.weather_codes);
+        WeatherCollection weatherCollection = new WeatherCollection(getApplicationContext(), R.xml.weather_codes);
 
-        Log.e(TAG, weatherList.getElements().toString());
+        Log.e(TAG, weatherCollection.getElementById(199).toString());
 
 
 
@@ -148,8 +147,8 @@ public class MainActivity extends AppCompatActivity {
 //        deleteMultiUser(list);
 //
 //
-//        List<Weather> weatherList = weatherDao.getWeatherById(4200);
-//        for (Weather w: weatherList){
+//        List<Weather> weatherCollection = weatherDao.getWeatherById(4200);
+//        for (Weather w: weatherCollection){
 //            Log.e(TAG,"&&& - : " + w.toString());
 //        }
     }

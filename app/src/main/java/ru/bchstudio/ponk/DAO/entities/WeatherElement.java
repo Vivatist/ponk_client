@@ -1,7 +1,6 @@
 package ru.bchstudio.ponk.DAO.entities;
 
 
-import org.jetbrains.annotations.NotNull;
 
 public class WeatherElement {
 
@@ -12,17 +11,7 @@ public class WeatherElement {
     private String icon__night;
 
 
-    public String getIcon__night() {
-        return icon__night;
-    }
 
-    public void setIcon_day(String icon_day) {
-        this.icon_day = icon_day;
-    }
-
-    public void setIcon__night(String icon__night) {
-        this.icon__night = icon__night;
-    }
 
     public int getId() {
         return id;
@@ -40,6 +29,9 @@ public class WeatherElement {
         return icon_day;
     }
 
+    public String getIcon__night() {
+        return icon__night;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -53,10 +45,20 @@ public class WeatherElement {
         this.description = description;
     }
 
+    public void setIcon_day(String icon_day) {
+        this.icon_day = icon_day;
+    }
+
+    public void setIcon__night(String icon__night) {
+        this.icon__night = icon__night;
+    }
+
+
 
 
     public WeatherElement() {
     }
+
 
 
     @Override

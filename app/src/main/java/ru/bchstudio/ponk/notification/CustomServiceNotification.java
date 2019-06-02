@@ -9,6 +9,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.support.annotation.ColorInt;
 import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 
@@ -122,19 +123,20 @@ public class CustomServiceNotification extends ServiceNotification {
         remoteViews.setOnClickPendingIntent(R.id.root_layout, pendingIntent);
 
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "3");
 
 
         builder
                 .setSmallIcon(icon)
                 .setContent(remoteViews)
-                .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
-                .setContentIntent(pendingIntent)
+              //  .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
+             //   .setContentIntent(pendingIntent)
+              //  .setColor(context.getColor(R.color.colorPrimaryDark))
                 .setSound(null);
 //
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_LOW);
+            NotificationChannel notificationChannel = new NotificationChannel("3", "CHANNEL_NAME", NotificationManager.IMPORTANCE_LOW);
             notificationChannel.setSound(null, null);
             notificationChannel.setShowBadge(false);
             manager.createNotificationChannel(notificationChannel);

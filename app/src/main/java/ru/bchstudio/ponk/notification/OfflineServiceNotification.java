@@ -46,10 +46,11 @@ public class OfflineServiceNotification extends ServiceNotification {
 
     private Notification prepareNotification(Context context, int icon, String contentTitle, String contentText, Date upd_time) {
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID);
+
         Intent notificationIntent = new Intent(context, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
 
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID);
         builder.setSmallIcon(icon)
                 .setContentTitle(contentTitle)
                 .setContentText(contentText)

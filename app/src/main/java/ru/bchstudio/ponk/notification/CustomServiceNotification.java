@@ -115,16 +115,19 @@ public class CustomServiceNotification extends ServiceNotification {
         Intent notificationIntent = new Intent(context, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.notification);
-        remoteViews.setTextViewText(R.id.textViewTemperature, "-40");
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.notification_layout);
+        remoteViews.setTextViewText(R.id.textView3, "-40");
+        remoteViews.setTextViewText(R.id.textView4, "Влажность " + contentText);
+        remoteViews.setTextViewText(R.id.textView5, "Ветер " + contentTitle);
         remoteViews.setOnClickPendingIntent(R.id.root_layout, pendingIntent);
 
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID);
 
 
-        builder.setSmallIcon(icon)
-                .setCustomContentView(remoteViews)
+        builder
+                .setSmallIcon(icon)
+                .setContent(remoteViews)
                 .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
                 .setContentIntent(pendingIntent)
                 .setSound(null);

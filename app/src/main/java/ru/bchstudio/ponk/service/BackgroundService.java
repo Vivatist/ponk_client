@@ -16,7 +16,8 @@ import java.util.Calendar;
 import ru.bchstudio.ponk.Constants;
 
 import ru.bchstudio.ponk.notification.OfflineServiceNotification;
-import ru.bchstudio.ponk.notification.ServiceNotification;
+import ru.bchstudio.ponk.notification.BaseNotification;
+import ru.bchstudio.ponk.notification.WeatherNotificationInterface;
 import ru.bchstudio.ponk.web.events.ResponseCurrentWeatherEvent;
 import ru.bchstudio.ponk.web.WebAsyncTask;
 
@@ -41,7 +42,7 @@ public class BackgroundService extends Service {
         }
 
 
-        ServiceNotification notification = new OfflineServiceNotification(this);
+        WeatherNotificationInterface notification = new OfflineServiceNotification(this);
         startForeground(notification.getId(), notification.getNotification());
 
         if (Constants.ENABLED_DEBUG_TWIST) showToast(getApplication(), "Start Foreground Service");

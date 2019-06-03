@@ -5,7 +5,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import ru.bchstudio.ponk.R;
 
-public abstract class ServiceNotification {
+public abstract class BaseNotification {
 
     static final String CHANNEL_ID = "Channel ID"; //TODO придумать более удачное название
     static final String CHANNEL_NAME = "Channel name"; //TODO придумать более удачное название
@@ -14,13 +14,9 @@ public abstract class ServiceNotification {
 
 
 
-    ServiceNotification(Context context){
+    BaseNotification(Context context){
        this.context = context;
     }
-
-
-
-    public abstract Notification getNotification();
 
 
 
@@ -29,12 +25,7 @@ public abstract class ServiceNotification {
     }
 
 
-
-    public void show() {
-        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(getId(), getNotification());
-    }
-
+    public abstract Notification getNotification();
 
 
     int getIcon(int value){

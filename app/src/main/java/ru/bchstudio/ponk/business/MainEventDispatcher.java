@@ -8,9 +8,10 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import ru.bchstudio.ponk.notification.OfflineServiceNotification;
-import ru.bchstudio.ponk.notification.ServiceNotification;
+import ru.bchstudio.ponk.notification.BaseNotification;
 import ru.bchstudio.ponk.notification.StandartServiceNotification;
 import ru.bchstudio.ponk.DAO.entities.Weather;
+import ru.bchstudio.ponk.notification.WeatherNotificationInterface;
 import ru.bchstudio.ponk.web.events.ResponseCurrentWeatherEvent;
 import ru.bchstudio.ponk.web.events.ResponseTestEvent;
 import ru.bchstudio.ponk.web.WebAsyncTask;
@@ -34,7 +35,7 @@ public class MainEventDispatcher {
 
     @Subscribe
     public void onResponseCurrentWeatherEvent(ResponseCurrentWeatherEvent event) {
-        Toast.makeText(context, event.message, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, event.message, Toast.LENGTH_SHORT).show();
 
         String result = event.message;
 
@@ -45,15 +46,12 @@ public class MainEventDispatcher {
 
             Weather weather = new Weather(result);
 
-            StandartServiceNotification notification = new StandartServiceNotification(context);
-            notification.setTemperature(weather.getTemp())
-                    .setContentTitle("Ветер " + weather.getWind_spd() + "м/с")
-                    .setContentText("Влажность " + weather.getHumidity() + "%")
-                    .setUpd_time(weather.getUpd_time())
-                    .show();
+            WeatherNotificationInterface notification = new StandartServiceNotification(context);
+            notification.setWeather(weather);
+            notification.show();
 
         } else {
-            ServiceNotification notification = new OfflineServiceNotification(context);
+            WeatherNotificationInterface notification = new OfflineServiceNotification(context);
             notification.show();
 
 
@@ -63,6 +61,6 @@ public class MainEventDispatcher {
 
     @Subscribe
     public void onResponseTestEvent(ResponseTestEvent event) {
-        Toast.makeText(context, "Тестовый запрос. Ответ: " + event.message, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, "Тестовый запрос. Ответ: " + event.message, Toast.LENGTH_SHORT).show();
     }
 }

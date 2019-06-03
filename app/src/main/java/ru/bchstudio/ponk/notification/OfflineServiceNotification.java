@@ -10,52 +10,44 @@ import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
 import java.util.Calendar;
-import java.util.Date;
 
+
+import ru.bchstudio.ponk.DAO.entities.Weather;
 import ru.bchstudio.ponk.MainActivity;
 import ru.bchstudio.ponk.R;
 
 
 
-public class OfflineServiceNotification extends ServiceNotification {
+public class OfflineServiceNotification extends BaseNotification implements  WeatherNotificationInterface{
 
 
 
-    private int icon;
-    private String contentTitle;
-    private String contentText;
-    private Date upd_time;
+    private Weather weather;
 
 
     public OfflineServiceNotification(Context context) {
         super(context);
-        this.context = context;
-        this.upd_time = Calendar.getInstance().getTime();
-        this.contentTitle = "Ошибка связи";
-        this.contentText = "";
-        this.icon = R.drawable.ic_stat_cloud_off;
     }
-
 
     @Override
     public Notification getNotification() {
-        return prepareNotification( context,  icon,  contentTitle,  contentText,  upd_time);
+        return prepareNotification( context);
     }
 
 
 
-    private Notification prepareNotification(Context context, int icon, String contentTitle, String contentText, Date upd_time) {
+    private Notification prepareNotification(Context context) {
 
 
         Intent notificationIntent = new Intent(context, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID);
-        builder.setSmallIcon(icon)
-                .setContentTitle(contentTitle)
-                .setContentText(contentText)
+        builder.setSmallIcon(R.drawable.ic_stat_cloud_off)
+                .setContentTitle("Ошибка связи")
+                .setContentText("")
                 .setContentIntent(pendingIntent)
-                .setWhen(upd_time.getTime())
+                .setWhen(Calendar.getInstance().getTime().getTime())
                 .setSound(null);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -72,9 +64,13 @@ public class OfflineServiceNotification extends ServiceNotification {
 
 
     @Override
-    public int getId() {
-        return NOTIFICATION_ID;
+    public void show() {
+        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(getId(), getNotification());
     }
 
-
+    @Override
+    public void setWeather(Weather weather) {
+        this.weather = weather;
+    }
 }

@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <item>
+        <id>200</id>
+        <main>Гроза</main>
+        <description>Гроза с легким дождем</description>
+        <icon_d>11d</icon_d>
+        <icon_n>11d</icon_n>
+    </item>
+    <item>
+        <id>201</id>
+        <main>Гроза</main>
+        <description>Гроза с дождем</description>
+        <icon_d>11d</icon_d>
+        <icon_n>11d</icon_n>
+    </item>
+    <item>
+        <id>202</id>
+        <main>Гроза</main>
+        <description>Гроза с ливнем</description>
+        <icon_d>11d</icon_d>
+        <icon_n>11d</icon_n>
+    </item>
+    <item>
+        <id>210</id>
+        <main>Гроза</main>
+        <description>Легкая гроза</description>
+        <icon_d>11d</icon_d>
+        <icon_n>11d</icon_n>
+    </item>
+    <item>
+        <id>211</id>
+        <main>Гроза</main>
+        <description>Гроза</description>
+        <icon_d>11d</icon_d>
+        <icon_n>11d</icon_n>
+    </item>
+    <item>
+        <id>212</id>
+        <main>Гроза</main>
+        <description>Ужасная гроза</description>
+        <icon_d>11d</icon_d>
+        <icon_n>11d</icon_n>
+    </item>
+    <item>
+        <id>221</id>
+        <main>Гроза</main>
+        <description>Периодические грозы</description>
+        <icon_d>11d</icon_d>
+        <icon_n>11d</icon_n>
+    </item>
+    <item>
+        <id>230</id>
+        <main>Гроза</main>
+        <description>Гроза с легкой моросью</description>
+        <icon_d>11d</icon_d>
+        <icon_n>11d</icon_n>
+    </item>
+    <item>
+        <id>231</id>
+        <main>Гроза</main>
+        <description>Гроза с моросью</description>
+        <icon_d>11d</icon_d>
+        <icon_n>11d</icon_n>
+    </item>
+    <item>
+        <id>232</id>
+        <main>Гроза</main>
+        <description>Гроза с интенсивной моросью</description>
+        <icon_d>11d</icon_d>
+        <icon_n>11d</icon_n>
+    </item>
+
+    <item>
+        <id>300</id>
+        <main>Морось</main>
+        <description>Легкий моросящий дождь</description>
+        <icon_d>09d</icon_d>
+        <icon_n>09d</icon_n>
+    </item>
+    <item>
+        <id>301</id>
+        <main>Морось</main>
+        <description>Моросящий дождь</description>
+        <icon_d>09d</icon_d>
+        <icon_n>09d</icon_n>
+    </item>
+    <item>
+        <id>302</id>
+        <main>Морось</main>
+        <description>Интенсивный моросящий дождь</description>
+        <icon_d>09d</icon_d>
+        <icon_n>09d</icon_n>
+    </item>
+    <item>
+        <id>310</id>
+        <main>Морось</main>
+        <description>Слабый моросящий дождь</description>
+        <icon_d>09d</icon_d>
+        <icon_n>09d</icon_n>
+    </item>
+    <item>
+        <id>311</id>
+        <main>Морось</main>
+        <description>Легкий моросящий дождь</description>
+        <icon_d>09d</icon_d>
+        <icon_n>09d</icon_n>
+    </item>
+    <item>
+        <id>312</id>
+        <main>Изморось</main>
+        <description>Сильный моросящий дождь</description>
+        <icon_d>09d</icon_d>
+        <icon_n>09d</icon_n>
+    </item>
+    <item>
+        <id>313</id>
+        <main>Морось</main>
+        <description>Проливные и моросящие дожди</description>
+        <icon_d>09d</icon_d>
+        <icon_n>09d</icon_n>
+    </item>
+    <item>
+        <id>314</id>
+        <main>Морось</main>
+        <description>Ливневые и моросящие дожди</description>
+        <icon_d>09d</icon_d>
+        <icon_n>09d</icon_n>
+    </item>
+    <item>
+        <id>321</id>
+        <main>Морось</main>
+        <description>Моросящий дождь</description>
+        <icon_d>09d</icon_d>
+        <icon_n>09d</icon_n>
+    </item>
+
+    <item>
+        <id>500</id>
+        <main>Дождь</main>
+        <description>Легкий дождь</description>
+        <icon_d>10d</icon_d>
+        <icon_n>10d</icon_n>
+    </item>
+    <item>
+        <id>501</id>
+        <main>Дождь</main>
+        <description>Умеренный дождь</description>
+        <icon_d>10d</icon_d>
+        <icon_n>10d</icon_n>
+    </item>
+    <item>
+        <id>502</id>
+        <main>Дождь</main>
+        <description>Интенсивный дождь</description>
+        <icon_d>10d</icon_d>
+        <icon_n>10d</icon_n>
+    </item>
+    <item>
+        <id>503</id>
+        <main>Дождь</main>
+        <description>Очень сильный дождь</description>
+        <icon_d>10d</icon_d>
+        <icon_n>10d</icon_n>
+    </item>
+    <item>
+        <id>504</id>
+        <main>Дождь</main>
+        <description>Проливной дождь</description>
+        <icon_d>10d</icon_d>
+        <icon_n>10d</icon_n>
+    </item>
+    <item>
+        <id>511</id>
+        <main>Дождь</main>
+        <description>Ледяной дождь</description>
+        <icon_d>13d</icon_d>
+        <icon_n>13d</icon_n>
+    </item>
+    <item>
+        <id>520</id>
+        <main>Дождь</main>
+        <description>Слабый ливневый дождь</description>
+        <icon_d>09d</icon_d>
+        <icon_n>09d</icon_n>
+    </item>
+    <item>
+        <id>521</id>
+        <main>Дождь</main>
+        <description>Ливень</description>
+        <icon_d>09d</icon_d>
+        <icon_n>09d</icon_n>
+    </item>
+    <item>
+        <id>522</id>
+        <main>Дождь</main>
+        <description>Сильные проливные дожди</description>
+        <icon_d>09d</icon_d>
+        <icon_n>09d</icon_n>
+    </item>
+    <item>
+        <id>531</id>
+        <main>Дождь</main>
+        <description>Периодические дожди</description>
+        <icon_d>09d</icon_d>
+        <icon_n>09d</icon_n>
+    </item>
+
+    <item>
+        <id>600</id>
+        <main>Снег</main>
+        <description>Легкий снег</description>
+        <icon_d>13d</icon_d>
+        <icon_n>13d</icon_n>
+    </item>
+    <item>
+        <id>601</id>
+        <main>Снег</main>
+        <description>Снег</description>
+        <icon_d>13d</icon_d>
+        <icon_n>13d</icon_n>
+    </item>
+    <item>
+        <id>602</id>
+        <main>Снег</main>
+        <description>Снегопад</description>
+        <icon_d>13d</icon_d>
+        <icon_n>13d</icon_n>
+    </item>
+    <item>
+        <id>611</id>
+        <main>Снег</main>
+        <description>Снег с дождем</description>
+        <icon_d>13d</icon_d>
+        <icon_n>13d</icon_n>
+    </item>
+    <item>
+        <id>612</id>
+        <main>Снег</main>
+        <description>Легкий снег с дождем</description>
+        <icon_d>13d</icon_d>
+        <icon_n>13d</icon_n>
+    </item>
+    <item>
+        <id>613</id>
+        <main>Снег</main>
+        <description>Проливной дождь со снегом</description>
+        <icon_d>13d</icon_d>
+        <icon_n>13d</icon_n>
+    </item>
+    <item>
+        <id>615</id>
+        <main>Снег</main>
+        <description>Легкий дождь и снег</description>
+        <icon_d>13d</icon_d>
+        <icon_n>13d</icon_n>
+    </item>
+    <item>
+        <id>616</id>
+        <main>Снег</main>
+        <description>Дождь и снег</description>
+        <icon_d>13d</icon_d>
+        <icon_n>13d</icon_n>
+    </item>
+    <item>
+        <id>620</id>
+        <main>Снег</main>
+        <description>Легкий снегопад</description>
+        <icon_d>13d</icon_d>
+        <icon_n>13d</icon_n>
+    </item>
+    <item>
+        <id>621</id>
+        <main>Снег</main>
+        <description>Снег</description>
+        <icon_d>13d</icon_d>
+        <icon_n>13d</icon_n>
+    </item>
+    <item>
+        <id>622</id>
+        <main>Снег</main>
+        <description>Сильный снегопад</description>
+        <icon_d>13d</icon_d>
+        <icon_n>13d</icon_n>
+    </item>
+
+
+    <item>
+        <id>701</id>
+        <main>Туман</main>
+        <description>Туман</description>
+        <icon_d>50d</icon_d>
+        <icon_n>50d</icon_n>
+    </item>
+    <item>
+        <id>711</id>
+        <main>Дым</main>
+        <description>Дым</description>
+        <icon_d>50d</icon_d>
+        <icon_n>50d</icon_n>
+    </item>
+    <item>
+        <id>721</id>
+        <main>Мгла</main>
+        <description>Мгла</description>
+        <icon_d>50d</icon_d>
+        <icon_n>50d</icon_n>
+    </item>
+    <item>
+        <id>731</id>
+        <main>Пыль</main>
+        <description>Песчаня пыльная буря</description>
+        <icon_d>50d</icon_d>
+        <icon_n>50d</icon_n>
+    </item>
+    <item>
+        <id>741</id>
+        <main>Туман</main>
+        <description>Сильный туман</description>
+        <icon_d>50d</icon_d>
+        <icon_n>50d</icon_n>
+    </item>
+    <item>
+        <id>751</id>
+        <main>Песок</main>
+        <description>Песок</description>
+        <icon_d>50d</icon_d>
+        <icon_n>50d</icon_n>
+    </item>
+    <item>
+        <id>761</id>
+        <main>Пыль</main>
+        <description>Пыль</description>
+        <icon_d>50d</icon_d>
+        <icon_n>50d</icon_n>
+    </item>
+    <item>
+        <id>762</id>
+        <main>Пепел</main>
+        <description>Вулканический пепел</description>
+        <icon_d>50d</icon_d>
+        <icon_n>50d</icon_n>
+    </item>
+    <item>
+        <id>771</id>
+        <main>Шквал</main>
+        <description>Шквал</description>
+        <icon_d>50d</icon_d>
+        <icon_n>50d</icon_n>
+    </item>
+    <item>
+        <id>781</id>
+        <main>Торнадо</main>
+        <description>Торнадо</description>
+        <icon_d>50d</icon_d>
+        <icon_n>50d</icon_n>
+    </item>
+
+    <item>
+        <id>800</id>
+        <main>Ясно</main>
+        <description>Ясное небо</description>
+        <icon_d>01d</icon_d>
+        <icon_n>01n</icon_n>
+    </item>
+
+    <item>
+        <id>801</id>
+        <main>Облачно</main>
+        <description>Слегка облачно: 11-25%</description>
+        <icon_d>02d</icon_d>
+        <icon_n>02n</icon_n>
+    </item>
+    <item>
+        <id>802</id>
+        <main>Clouds</main>
+        <description>Облачность: 25-50%</description>
+        <icon_d>03d</icon_d>
+        <icon_n>03n</icon_n>
+    </item>
+    <item>
+        <id>803</id>
+        <main>Clouds</main>
+        <description>Сильная облачность: 51-84%</description>
+        <icon_d>04d</icon_d>
+        <icon_n>04n</icon_n>
+    </item>
+    <item>
+        <id>804</id>
+        <main>Clouds</main>
+        <description>Сильная облачность: 85-100%</description>
+        <icon_d>04d</icon_d>
+        <icon_n>04n</icon_n>
+    </item>
+
+</resources>

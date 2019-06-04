@@ -1,6 +1,8 @@
 package ru.bchstudio.ponk.DAO;
 
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 
 import org.jetbrains.annotations.NotNull;
 import org.xmlpull.v1.XmlPullParser;
@@ -99,15 +101,17 @@ public class WeatherCollection {
     }
 
 
+
     public WeatherElement getElementById(int id){
 
-        List<WeatherElement> result = elements.stream()
-                .filter(a -> Objects.equals(a.getId(), id))
-                .collect(Collectors.toList());
+        for (WeatherElement weatherElement : elements) {
+            if (weatherElement.getId() == id) {
+                return weatherElement;
+            }
 
-        Optional<WeatherElement> firstElement = result.stream().findFirst();
-        //TODO реализовать возврат null при неверном id
-        return firstElement.get();
+        }
+        return null;
+
     }
 
 

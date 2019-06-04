@@ -1,17 +1,13 @@
 package ru.bchstudio.ponk;
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.RemoteViews;
 import android.widget.TextView;
 
 
@@ -21,7 +17,6 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 import ru.bchstudio.ponk.DAO.WeatherCollection;
@@ -92,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onResponseEvent(ResponseTestEvent event) throws IOException, XmlPullParserException {
+    public void onResponseEvent(ResponseTestEvent event) throws IOException, XmlPullParserException, NoSuchFieldException, IllegalAccessException {
 
         String result = event.message;
         if (result == null) return;
@@ -103,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         weatherDao.addWeather(weather);
 
 
-        WeatherCollection weatherCollection = new WeatherCollection(getApplicationContext(), R.xml.weather_codes);
+        WeatherCollection weatherCollection = new WeatherCollection(getApplicationContext(), R.xml.weather_codes_ru);
 
         Log.e(TAG, weatherCollection.getElementById(200).toString());
 

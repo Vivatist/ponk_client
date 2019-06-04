@@ -14,7 +14,7 @@
 
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/nwl26p_imageview_temperature"
             android:layout_width="10dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

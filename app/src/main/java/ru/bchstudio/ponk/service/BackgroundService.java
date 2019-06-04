@@ -43,7 +43,13 @@ public class BackgroundService extends Service {
 
 
         WeatherNotificationInterface notification = new OfflineServiceNotification(this);
-        startForeground(notification.getId(), notification.getNotification());
+        try {
+            startForeground(notification.getId(), notification.getNotification());
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
 
         if (Constants.ENABLED_DEBUG_TWIST) showToast(getApplication(), "Start Foreground Service");
 

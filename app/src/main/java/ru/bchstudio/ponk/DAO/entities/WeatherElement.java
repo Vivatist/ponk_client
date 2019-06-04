@@ -1,6 +1,9 @@
 package ru.bchstudio.ponk.DAO.entities;
 
 
+import android.content.Context;
+
+import ru.bchstudio.ponk.R;
 
 public class WeatherElement {
 
@@ -33,6 +36,17 @@ public class WeatherElement {
         return icon__night;
     }
 
+    public int getIcon_day(Context context) throws NoSuchFieldException, IllegalAccessException {
+        return getIcon(context, icon_day);
+    }
+
+    public int getIcon__night(Context context) throws NoSuchFieldException, IllegalAccessException {
+        return getIcon(context, icon__night);
+    }
+
+
+
+
     public void setId(int id) {
         this.id = id;
     }
@@ -59,7 +73,10 @@ public class WeatherElement {
     public WeatherElement() {
     }
 
-
+    private int getIcon(Context context, String iconName) throws NoSuchFieldException, IllegalAccessException {
+        String nameResource = "ic_"+ iconName;
+        return R.drawable.class.getField(nameResource).getInt(context.getResources());
+    }
 
     @Override
     public String toString() {

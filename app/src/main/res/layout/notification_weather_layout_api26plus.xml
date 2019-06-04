@@ -7,34 +7,33 @@
     android:layout_height="64dp">
 
 
-    <TextView
-        android:id="@+id/nwl26p_text_view_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:background="@color/colorPrimary">
+        >
 
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/nwl26p_text_view_temp"
-            android:layout_width="50dp"
+            android:layout_width="2dp"
             android:layout_height="match_parent"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
             android:layout_weight="4"
+            android:gravity="center_vertical"
             android:maxLines="1"
             android:text="-4"
-            app:autoSizeTextType="uniform" />
+            android:textSize="46sp"
+            app:autoSizeTextType="none" />
+
+        <ImageView
+            android:id="@+id/nwl26p_imageview_temperature"
+            android:layout_width="29dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            tools:srcCompat="@drawable/ic_04n" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -43,10 +42,18 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/nwl26p_text_view_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textStyle="bold" />
+
+            <TextView
                 android:id="@+id/nwl26p_text_view_humidity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Влажность 43%"
+                android:textSize="10sp"
                 app:autoSizeTextType="none" />
 
             <TextView
@@ -54,6 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Давление 854 мм р.с."
+                android:textSize="10sp"
                 app:autoSizeTextType="none" />
 
             <TextView
@@ -61,6 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ветер 6 м/с"
+                android:textSize="10sp"
                 app:autoSizeTextType="none" />
         </LinearLayout>
     </LinearLayout>

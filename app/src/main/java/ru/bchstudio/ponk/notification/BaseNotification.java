@@ -25,7 +25,7 @@ public abstract class BaseNotification {
     }
 
 
-    public abstract Notification getNotification();
+    public abstract Notification getNotification() throws NoSuchFieldException, IllegalAccessException;
 
 
     int getIcon(int value){

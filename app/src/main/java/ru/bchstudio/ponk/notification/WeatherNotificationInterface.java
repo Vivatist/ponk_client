@@ -6,9 +6,9 @@ import ru.bchstudio.ponk.DAO.entities.Weather;
 
 public interface WeatherNotificationInterface {
 
-    public void show();
+    public void show() throws NoSuchFieldException, IllegalAccessException;
     public void setWeather(Weather weather);
-    public Notification getNotification();
+    public Notification getNotification() throws NoSuchFieldException, IllegalAccessException;
     public int getId();
 
 

@@ -7,6 +7,7 @@ import android.widget.Toast;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import ru.bchstudio.ponk.notification.BlankServiceNotification;
 import ru.bchstudio.ponk.notification.OfflineServiceNotification;
 import ru.bchstudio.ponk.notification.BaseNotification;
 import ru.bchstudio.ponk.notification.StandartServiceNotification;
@@ -34,7 +35,7 @@ public class MainEventDispatcher {
 
 
     @Subscribe
-    public void onResponseCurrentWeatherEvent(ResponseCurrentWeatherEvent event) {
+    public void onResponseCurrentWeatherEvent(ResponseCurrentWeatherEvent event) throws NoSuchFieldException, IllegalAccessException {
         //Toast.makeText(context, event.message, Toast.LENGTH_SHORT).show();
 
         String result = event.message;
@@ -46,12 +47,12 @@ public class MainEventDispatcher {
 
             Weather weather = new Weather(result);
 
-            WeatherNotificationInterface notification = new StandartServiceNotification(context);
+            WeatherNotificationInterface notification = new BlankServiceNotification(context);
             notification.setWeather(weather);
             notification.show();
 
         } else {
-            WeatherNotificationInterface notification = new OfflineServiceNotification(context);
+            WeatherNotificationInterface notification = new BlankServiceNotification(context);
             notification.show();
 
 
